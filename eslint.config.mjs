@@ -1,10 +1,7 @@
-import pluginVue from 'eslint-plugin-vue';
-import pluginVueA11y from 'eslint-plugin-vuejs-accessibility';
-import {
-    defineConfigWithVueTs,
-    vueTsConfigs,
-} from '@vue/eslint-config-typescript';
-import skipFormatting from 'eslint-config-prettier';
+import pluginVue from 'eslint-plugin-vue'
+import pluginVueA11y from 'eslint-plugin-vuejs-accessibility'
+import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
+import skipFormatting from 'eslint-config-prettier'
 
 export default defineConfigWithVueTs(
     {
@@ -23,7 +20,13 @@ export default defineConfigWithVueTs(
         rules: {
             'vue/multi-word-component-names': 'off',
             'vuejs-accessibility/no-autofocus': 'warn',
+            'vue/block-order': [
+                'error',
+                {
+                    order: ['script', 'template', 'style'],
+                },
+            ],
         },
     },
-    skipFormatting,
-);
+    skipFormatting
+)
