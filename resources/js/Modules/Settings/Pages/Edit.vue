@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import DeleteUserForm from './Partials/DeleteUserForm.vue';
-import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
-import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
+import AuthenticatedLayout from '@/Core/Layouts/AuthenticatedLayout.vue';
+import DeleteUserForm from '@/Modules/Settings/Components/DeleteUserForm.vue';
+import UpdatePasswordForm from '@/Modules/Settings/Components/UpdatePasswordForm.vue';
+import UpdateProfileInformationForm from '@/Modules/Settings/Components/UpdateProfileInformationForm.vue';
 import { Head } from '@inertiajs/vue3';
 
 defineProps<{
