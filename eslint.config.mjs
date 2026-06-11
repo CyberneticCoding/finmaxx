@@ -1,0 +1,27 @@
+import pluginVue from 'eslint-plugin-vue';
+import pluginVueA11y from 'eslint-plugin-vuejs-accessibility';
+import {
+    defineConfigWithVueTs,
+    vueTsConfigs,
+} from '@vue/eslint-config-typescript';
+
+export default defineConfigWithVueTs(
+    {
+        ignores: [
+            '**/vendor/**',
+            '**/node_modules/**',
+            '**/public/build/**',
+            '**/bootstrap/cache/**',
+            '**/storage/**',
+        ],
+    },
+    pluginVue.configs['flat/recommended'],
+    vueTsConfigs.recommended,
+    ...pluginVueA11y.configs['flat/recommended'],
+    {
+        rules: {
+            'vue/multi-word-component-names': 'off',
+            'vuejs-accessibility/no-autofocus': 'warn',
+        },
+    },
+);
