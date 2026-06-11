@@ -4,6 +4,7 @@ import {
     defineConfigWithVueTs,
     vueTsConfigs,
 } from '@vue/eslint-config-typescript';
+import skipFormatting from 'eslint-config-prettier';
 
 export default defineConfigWithVueTs(
     {
@@ -24,4 +25,5 @@ export default defineConfigWithVueTs(
             'vuejs-accessibility/no-autofocus': 'warn',
         },
     },
+    skipFormatting,
 );
