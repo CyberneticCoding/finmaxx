@@ -22,5 +22,7 @@
         --color-danger: 220 38 38; /* #dc2626 */
         --color-warning: 217 119 6; /* #d97706 */
         --color-info: 8 145 178; /* #0891b2 */
+
+        --color-focus-primary: 79 70 229; /* #4f46e5 */
     }
 }

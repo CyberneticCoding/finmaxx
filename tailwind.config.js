@@ -38,6 +38,9 @@ export default {
                         warning: 'rgb(var(--color-warning) / <alpha-value>)',
                         info: 'rgb(var(--color-info) / <alpha-value>)',
                     },
+                    focus: {
+                        primary: 'rgb(var(--color-focus-primary) / <alpha-value>)',
+                    },
                 },
             },
             fontFamily: {
