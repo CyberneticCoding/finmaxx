@@ -5,6 +5,7 @@ import InputError from '@/Core/Components/InputError.vue'
 import InputLabel from '@/Core/Components/InputLabel.vue'
 import PrimaryButton from '@/Core/Components/PrimaryButton.vue'
 import TextInput from '@/Core/Components/TextInput.vue'
+import BaseInput from '@/Core/Components/Base/BaseInput.vue'
 import { Head, useForm } from '@inertiajs/vue3'
 
 defineProps<{
@@ -39,7 +40,25 @@ const submit = () => {
             <h1 class="mb-4 text-2xl font-bold">Login</h1>
 
             <div>
-                <InputLabel for="email" value="Email" />
+                <BaseInput 
+                    type="email"
+                    label="Email"
+                    placeholder="Email address"
+                    :required="true"
+                    :disabled="false"
+                    v-model="form.email"
+                />
+
+                <BaseInput 
+                    type="password"
+                    label="Password"
+                    placeholder="Password"
+                    :required="true"
+                    :disabled="false"
+                    v-model="form.password"
+                />
+
+                <!-- <InputLabel for="email" value="Email" />
                 <TextInput
                     id="email"
                     v-model="form.email"
@@ -50,10 +69,10 @@ const submit = () => {
                     autocomplete="username"
                 />
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="form.errors.email" /> -->
             </div>
 
-            <div class="mt-4">
+            <!-- <div class="mt-4">
                 <InputLabel for="password" value="Password" />
                 <TextInput
                     id="password"
@@ -65,7 +84,7 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.password" />
-            </div>
+            </div> -->
 
             <PrimaryButton
                 class="mt-4 w-full py-3"
