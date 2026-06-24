@@ -14,7 +14,7 @@ import { Link } from '@inertiajs/vue3'
         </div>
 
         <div
-            class="mt-8 w-full overflow-hidden border-y border-theme-border-secondary bg-white px-8 py-10 shadow-lg sm:max-w-md sm:rounded-3xl sm:border dark:bg-gray-800"
+            class="mt-8 w-full overflow-hidden border-y border-theme-border-secondary bg-white p-6 shadow-lg sm:max-w-md sm:rounded-3xl sm:border dark:bg-gray-800"
         >
             <slot />
         </div>
