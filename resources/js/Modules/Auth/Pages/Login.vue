@@ -5,7 +5,7 @@ import InputError from '@/Core/Components/InputError.vue'
 import InputLabel from '@/Core/Components/InputLabel.vue'
 import PrimaryButton from '@/Core/Components/PrimaryButton.vue'
 import TextInput from '@/Core/Components/TextInput.vue'
-import { Head, Link, useForm } from '@inertiajs/vue3'
+import { Head, useForm } from '@inertiajs/vue3'
 
 defineProps<{
     canResetPassword?: boolean
@@ -36,7 +36,8 @@ const submit = () => {
         </div>
 
         <form @submit.prevent="submit">
-            <h1 class="mb-4 text-2xl font-extrabold">Login</h1>
+            <h1 class="mb-4 text-2xl font-bold">Login</h1>
+
             <div>
                 <InputLabel for="email" value="Email" />
                 <TextInput
@@ -74,7 +75,8 @@ const submit = () => {
                 Login to Finmaxx
             </PrimaryButton>
 
-            <!-- <div class="relative my-2 h-4 border-b border-theme-border-primary text-center">
+            <!-- TODO add separator when passkey integration is implemented
+            <div class="relative my-2 h-4 border-b border-theme-border-primary text-center">
                 <span class="relative bg-theme-bg-primary px-5 text-xs"> or </span>
             </div> -->
 
