@@ -1,12 +1,23 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 const props = defineProps<{
     type: string
     label: string
     placeholder: string
     required: boolean
     disabled: boolean
-    value: string
+    modelValue: string
 }>()
+
+const emit = defineEmits<{
+    (e: 'update:modelValue', value: string): void
+}>()
+
+const value = computed({
+    get: () => props.modelValue,
+    set: (newValue: string) => emit('update:modelValue', newValue),
+})
 </script>
 
 <template>
@@ -16,14 +27,15 @@ const props = defineProps<{
         }}</label>
         <div class="mt-1">
             <input
-                type="type"
+                :type="type"
                 name="name"
                 id="id"
-                :value="value"
+                :value="modelValue"
                 :placeholder="placeholder"
                 :disabled="disabled"
                 :required="required"
-                class="block w-full rounded-md border border-theme-border-primary bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500 disabled:opacity-60 disabled:outline-gray-200 sm:text-sm/6"
+                v-model="value"
+                class="block w-full rounded-md border border-theme-border-primary bg-white px-3 py-2.5 text-sm text-gray-900 placeholder:text-neutral-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500 disabled:opacity-60 disabled:outline-gray-200 sm:text-sm/6"
             />
         </div>
     </div>
