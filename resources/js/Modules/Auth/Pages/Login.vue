@@ -37,9 +37,9 @@ const submit = () => {
         </div>
 
         <form @submit.prevent="submit">
-            <h1 class="mb-4 text-2xl font-bold">Login</h1>
+            <h1 class="mb-1 text-2xl font-bold">Login</h1>
 
-            <div>
+            <div class="flex flex-col gap-1">
                 <BaseInput 
                     type="email"
                     label="Email"
