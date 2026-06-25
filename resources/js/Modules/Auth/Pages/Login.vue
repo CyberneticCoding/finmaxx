@@ -75,7 +75,7 @@ const submit = () => {
                     </span>
                 </label>
 
-                <hr aria-hidden="true" class="relative border-theme-border-secondary text-center"></hr>
+                <hr aria-hidden="true" class="relative border-theme-border-secondary my-2 text-center"></hr>
             </div>
 
             <div class="mt-4 flex flex-col gap-2">

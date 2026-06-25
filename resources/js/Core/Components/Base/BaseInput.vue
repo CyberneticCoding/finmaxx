@@ -47,7 +47,7 @@ const value = computed({
             :required="required"
             :aria-invalid="invalid ? 'true' : undefined"
             :class="[
-                'block w-full rounded-md border bg-theme-bg-primary px-3 py-2.5 text-sm text-theme-text-primary transition-colors placeholder:text-theme-text-tertiary disabled:cursor-not-allowed disabled:opacity-50 disabled:brightness-90 sm:text-sm/6',
+                'block w-full rounded-lg border bg-theme-bg-primary px-3 py-2.5 text-sm text-theme-text-primary transition-colors placeholder:text-theme-text-tertiary disabled:cursor-not-allowed disabled:opacity-50 disabled:brightness-90 sm:text-sm/6',
                 invalid
                     ? 'border-theme-status-danger pr-10 hover:ring-2 hover:ring-theme-status-danger/30 focus:border-theme-status-danger focus:ring-2 focus:ring-theme-status-danger/30'
                     : 'border-theme-border-primary',
