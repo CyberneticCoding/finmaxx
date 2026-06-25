@@ -3,7 +3,6 @@ import Checkbox from '@/Core/Components/Checkbox.vue'
 import GuestLayout from '@/Core/Layouts/GuestLayout.vue'
 import InputError from '@/Core/Components/InputError.vue'
 import InputLabel from '@/Core/Components/InputLabel.vue'
-import PrimaryButton from '@/Core/Components/PrimaryButton.vue'
 import TextInput from '@/Core/Components/TextInput.vue'
 import BaseInput from '@/Core/Components/Base/BaseInput.vue'
 import BaseButton from '@/Core/Components/Base/BaseButton.vue'
@@ -42,19 +41,19 @@ const submit = () => {
 
             <div class="flex flex-col gap-1">
                 <BaseInput 
+                    v-model="form.email"
                     type="email"
                     label="Email"
                     placeholder="Email address"
                     :required="true"
-                    v-model="form.email"
                 />
 
                 <BaseInput 
+                    v-model="form.password"
                     type="password"
                     label="Password"
                     placeholder="Password"
                     :required="true"
-                    v-model="form.password"
                 />
 
                 <!-- <InputLabel for="email" value="Email" />
@@ -71,7 +70,7 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.email" /> -->
             </div>
             <div class="mt-4 flex flex-col gap-4">
-                <BaseButton variant="primary" :processing="form.processing">
+                <BaseButton variant="primary" type="submit" :processing="form.processing">
                     Login to Finmaxx
                 </BaseButton>
 
@@ -86,11 +85,11 @@ const submit = () => {
             </div>
 
             <div class="mt-4 flex flex-col gap-2">
-                <BaseButton variant="inverse">
+                <BaseButton :href="route('password.request')" variant="inverse">
                     Forgot your password?
                 </BaseButton>
 
-                <BaseButton variant="inverse">
+                <BaseButton :href="route('register')" variant="inverse">
                     No account? Register here
                 </BaseButton>
             </div>

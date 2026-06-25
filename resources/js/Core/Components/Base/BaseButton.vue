@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { Link as InertiaLink } from '@inertiajs/vue3'
 import BaseSpinner from './BaseSpinner.vue'
 
 interface Props {
     variant: 'primary' | 'inverse'
     disabled?: boolean
     processing?: boolean
+    href?: string
 }
 
-const { variant = 'primary', disabled = false, processing = false } = defineProps<Props>()
+const { variant = 'primary', disabled = false, processing = false, href } = defineProps<Props>()
 
 const baseClasses =
     'shadow-xs inline-flex w-full items-center gap-2 justify-center rounded-lg px-3 py-2 disabled:opacity-50 disabled:cursor-not-allowed'
@@ -20,11 +22,18 @@ const variantClasses = {
         'bg-theme-bg-surface text-theme-text-primary hover:brightness-95 border border-theme-border-primary text-sm/4 font-medium disabled:hover:brightness-100',
 }
 
+const componentType = computed(() => {
+    if (!href) return 'button'
+    return InertiaLink
+})
+
 const isInteractionDisabled = computed(() => disabled || processing)
 </script>
 
 <template>
-    <button
+    <component
+        :is="componentType"
+        :href="isInteractionDisabled ? undefined : href"
         :disabled="isInteractionDisabled"
         :aria-busy="processing ? 'true' : undefined"
         :class="[baseClasses, variantClasses[variant]]"
@@ -36,5 +45,5 @@ const isInteractionDisabled = computed(() => disabled || processing)
         <template v-else>
             <slot />
         </template>
-    </button>
+    </component>
 </template>
