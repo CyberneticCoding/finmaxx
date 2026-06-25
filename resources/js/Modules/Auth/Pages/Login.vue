@@ -46,6 +46,7 @@ const submit = () => {
                     label="Email"
                     placeholder="Email address"
                     :required="true"
+                    :invalid="!!form.errors.email"
                 />
 
                 <BaseInput 
@@ -54,6 +55,7 @@ const submit = () => {
                     label="Password"
                     placeholder="Password"
                     :required="true"
+                    :invalid="!!form.errors.password"
                 />
 
                 <!-- <InputLabel for="email" value="Email" />

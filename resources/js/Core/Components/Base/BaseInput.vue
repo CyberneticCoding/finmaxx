@@ -1,40 +1,75 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const props = defineProps<{
+interface Props {
     type: string
     label: string
     placeholder: string
-    required: boolean
-    disabled: boolean
+    required?: boolean
+    disabled?: boolean
     modelValue: string
-}>()
+    invalid?: boolean
+}
+
+const {
+    type = 'text',
+    invalid = false,
+    label,
+    placeholder,
+    required,
+    disabled,
+    modelValue,
+} = defineProps<Props>()
 
 const emit = defineEmits<{
     (e: 'update:modelValue', value: string): void
 }>()
 
 const value = computed({
-    get: () => props.modelValue,
+    get: () => modelValue,
     set: (newValue: string) => emit('update:modelValue', newValue),
 })
 </script>
 
 <template>
-    <div>
-        <label for="name" class="block text-sm/8 font-medium text-theme-text-primary">{{
-            label
-        }}</label>
+    <label for="name" class="block text-sm/8 font-medium text-theme-text-primary">{{
+        label
+    }}</label>
+    <div class="relative">
         <input
+            id="id"
+            v-model="value"
             :type="type"
             name="name"
-            id="id"
             :value="modelValue"
             :placeholder="placeholder"
             :disabled="disabled"
             :required="required"
-            v-model="value"
-            class="block w-full rounded-md border border-theme-border-primary bg-theme-bg-primary px-3 py-2.5 text-sm text-theme-text-primary placeholder:text-theme-text-tertiary focus:outline-2 focus:-outline-offset-2 focus:outline-theme-focus-primary disabled:cursor-not-allowed disabled:opacity-50 disabled:brightness-90 sm:text-sm/6"
+            :aria-invalid="invalid ? 'true' : undefined"
+            :class="[
+                'block w-full rounded-md border bg-theme-bg-primary px-3 py-2.5 text-sm text-theme-text-primary transition-colors placeholder:text-theme-text-tertiary disabled:cursor-not-allowed disabled:opacity-50 disabled:brightness-90 sm:text-sm/6',
+                invalid
+                    ? 'border-theme-status-danger pr-10 hover:ring-2 hover:ring-theme-status-danger/30 focus:border-theme-status-danger focus:ring-2 focus:ring-theme-status-danger/30'
+                    : 'border-theme-border-primary',
+            ]"
         />
+        <div
+            v-if="invalid"
+            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
+            aria-hidden="true"
+        >
+            <svg
+                class="size-5 text-theme-status-danger"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                    clip-rule="evenodd"
+                />
+            </svg>
+        </div>
     </div>
 </template>
