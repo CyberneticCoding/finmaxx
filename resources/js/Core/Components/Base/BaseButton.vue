@@ -19,7 +19,11 @@ const isInteractionDisabled = computed(() => props.disabled || props.processing)
 </script>
 
 <template>
-    <button :disabled="isInteractionDisabled" :class="[baseClasses, variantClasses[variant]]">
+    <button
+        :disabled="isInteractionDisabled"
+        :aria-busy="processing ? 'true' : undefined"
+        :class="[baseClasses, variantClasses[variant]]"
+    >
         <template v-if="processing">
             <BaseSpinner className="size-4" />
             <span>Loading<span aria-hidden="true">...</span></span>
