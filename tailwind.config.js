@@ -18,6 +18,7 @@ export default {
                         primary: 'rgb(var(--color-bg-primary) / <alpha-value>)',
                         secondary: 'rgb(var(--color-bg-secondary) / <alpha-value>)',
                         tertiary: 'rgb(var(--color-bg-tertiary) / <alpha-value>)',
+                        surface: 'rgb(var(--color-bg-surface) / <alpha-value>)',
                     },
                     text: {
                         primary: 'rgb(var(--color-text-primary) / <alpha-value>)',

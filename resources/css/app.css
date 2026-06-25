@@ -7,6 +7,7 @@
         --color-bg-primary: 255 255 255; /* #FFFFFF */
         --color-bg-secondary: 250 250 249; /* #FAFAF9 */
         --color-bg-tertiary: 243 244 246; /* #f3f4f6 */
+        --color-bg-surface: 255 255 255; /* #FFFFFF */
 
         --color-text-primary: 17 24 39; /* #111827 */
         --color-text-secondary: 55 65 81; /* #374151 */
@@ -15,8 +16,8 @@
         --color-border-primary: 139 149 167; /* #8B95A7 */
         --color-border-secondary: 209 213 219; /* #d1d5db */
 
-        --color-brand-primary: 99 102 241; /* #6366f1 */
-        --color-brand-secondary: 88 85 235; /* #5855eb */
+        --color-brand-primary: 31 76 222; /* #1f4cde */
+        --color-brand-secondary: 55 94 219; /* #375edb */
 
         --color-success: 5 150 105; /* #059669 */
         --color-danger: 220 38 38; /* #dc2626 */

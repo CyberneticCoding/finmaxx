@@ -2,20 +2,25 @@
 import { computed } from 'vue'
 import BaseSpinner from './BaseSpinner.vue'
 
-const props = defineProps<{
-    variant: 'primary'
+interface Props {
+    variant: 'primary' | 'inverse'
     disabled?: boolean
     processing?: boolean
-}>()
-
-const baseClasses =
-    'shadow-xs inline-flex w-full items-center gap-2 justify-center rounded-md px-3 py-2 text-sm font-semibold disabled:opacity-50 disabled:hover:bg-theme-brand-primary disabled:cursor-not-allowed'
-
-const variantClasses = {
-    primary: 'bg-theme-brand-primary text-white hover:bg-theme-brand-secondary',
 }
 
-const isInteractionDisabled = computed(() => props.disabled || props.processing)
+const { variant = 'primary', disabled = false, processing = false } = defineProps<Props>()
+
+const baseClasses =
+    'shadow-xs inline-flex w-full items-center gap-2 justify-center rounded-md px-3 py-2 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed'
+
+const variantClasses = {
+    primary:
+        'bg-theme-brand-primary text-white hover:bg-theme-brand-secondary disabled:hover:bg-theme-brand-primary',
+    inverse:
+        'bg-theme-bg-surface text-theme-brand-primary hover:brightness-95 border border-theme-border-primary disabled:hover:brightness-100',
+}
+
+const isInteractionDisabled = computed(() => disabled || processing)
 </script>
 
 <template>
