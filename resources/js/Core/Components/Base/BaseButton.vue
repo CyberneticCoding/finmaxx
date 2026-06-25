@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 const props = defineProps<{
     variant: 'primary'
     disabled?: boolean
+    processing?: boolean
 }>()
 
 const baseClasses =
@@ -10,10 +13,12 @@ const baseClasses =
 const variantClasses = {
     primary: 'bg-theme-brand-primary text-white hover:bg-theme-brand-secondary',
 }
+
+const isInteractionDisabled = computed(() => props.disabled || props.processing)
 </script>
 
 <template>
-    <button :disabled="disabled" :class="[baseClasses, variantClasses[variant]]">
+    <button :disabled="isInteractionDisabled" :class="[baseClasses, variantClasses[variant]]">
         <slot />
     </button>
 </template>
