@@ -11,13 +11,13 @@ interface Props {
 const { variant = 'primary', disabled = false, processing = false } = defineProps<Props>()
 
 const baseClasses =
-    'shadow-xs inline-flex w-full items-center gap-2 justify-center rounded-md px-3 py-2 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed'
+    'shadow-xs inline-flex w-full items-center gap-2 justify-center rounded-lg px-3 py-2 disabled:opacity-50 disabled:cursor-not-allowed'
 
 const variantClasses = {
     primary:
-        'bg-theme-brand-primary text-white hover:bg-theme-brand-secondary disabled:hover:bg-theme-brand-primary',
+        'bg-theme-brand-primary text-white hover:bg-theme-brand-secondary text-sm/6 font-semibold disabled:hover:bg-theme-brand-primary',
     inverse:
-        'bg-theme-bg-surface text-theme-brand-primary hover:brightness-95 border border-theme-border-primary disabled:hover:brightness-100',
+        'bg-theme-bg-surface text-theme-text-primary hover:brightness-95 border border-theme-border-primary text-sm/4 font-medium disabled:hover:brightness-100',
 }
 
 const isInteractionDisabled = computed(() => disabled || processing)
