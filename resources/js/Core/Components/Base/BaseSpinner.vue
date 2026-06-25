@@ -3,7 +3,7 @@ interface Props {
     className?: string
 }
 
-const { className = 'size-5' } = defineProps<Props>()
+const { className = 'size-4' } = defineProps<Props>()
 </script>
 
 <template>
