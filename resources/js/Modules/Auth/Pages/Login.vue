@@ -6,6 +6,7 @@ import InputLabel from '@/Core/Components/InputLabel.vue'
 import TextInput from '@/Core/Components/TextInput.vue'
 import BaseInput from '@/Core/Components/Base/BaseInput.vue'
 import BaseButton from '@/Core/Components/Base/BaseButton.vue'
+import BaseError from '@/Core/Components/Base/BaseError.vue'
 import { Head, useForm } from '@inertiajs/vue3'
 
 defineProps<{
@@ -49,6 +50,10 @@ const submit = () => {
                     :invalid="!!form.errors.email"
                 />
 
+                <BaseError v-if="form.errors.email">
+                    {{ form.errors.email }}
+                </BaseError>
+
                 <BaseInput 
                     v-model="form.password"
                     type="password"
@@ -57,19 +62,6 @@ const submit = () => {
                     :required="true"
                     :invalid="!!form.errors.password"
                 />
-
-                <!-- <InputLabel for="email" value="Email" />
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" /> -->
             </div>
             <div class="mt-4 flex flex-col gap-4">
                 <BaseButton variant="primary" type="submit" :processing="form.processing">
@@ -96,30 +88,11 @@ const submit = () => {
                 </BaseButton>
             </div>
 
-            <!-- <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-                <TextInput
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="current-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div> -->
-
-
-
-
             <!-- TODO add separator when passkey integration is implemented
             <div class="relative my-2 h-4 border-b border-theme-border-primary text-center">
                 <span class="relative bg-theme-bg-primary px-5 text-xs"> or </span>
             </div> -->
 
-
-            <div class="mt-4 flex items-center justify-end"></div>
         </form>
     </GuestLayout>
 </template>
