@@ -7,7 +7,6 @@ interface Props {
     placeholder: string
     required?: boolean
     disabled?: boolean
-    modelValue: string
     invalid?: boolean
     name: string
 }
@@ -19,18 +18,10 @@ const {
     placeholder,
     required,
     disabled,
-    modelValue,
     name,
 } = defineProps<Props>()
 
-const emit = defineEmits<{
-    (e: 'update:modelValue', value: string): void
-}>()
-
-const value = computed({
-    get: () => modelValue,
-    set: (newValue: string) => emit('update:modelValue', newValue),
-})
+const modelValue = defineModel<string | number>({ default: '' })
 </script>
 
 <template>
@@ -40,7 +31,7 @@ const value = computed({
     <div class="relative">
         <input
             :id="name"
-            v-model="value"
+            v-model="modelValue"
             :type="type"
             :name="name"
             :value="modelValue"
