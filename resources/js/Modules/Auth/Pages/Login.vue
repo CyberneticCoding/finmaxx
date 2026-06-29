@@ -68,7 +68,7 @@ const submit = () => {
                 </BaseButton>
 
                 <BaseCheckbox
-                    v-model:checked="form.remember"
+                    v-model="form.remember"
                     name="remember"
                     label="Keep me signed in"
                 />
