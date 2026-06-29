@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Checkbox from '@/Core/Components/Checkbox.vue'
 import GuestLayout from '@/Core/Layouts/GuestLayout.vue'
 import InputError from '@/Core/Components/InputError.vue'
 import InputLabel from '@/Core/Components/InputLabel.vue'
@@ -7,6 +6,7 @@ import TextInput from '@/Core/Components/TextInput.vue'
 import BaseInput from '@/Core/Components/Base/BaseInput.vue'
 import BaseButton from '@/Core/Components/Base/BaseButton.vue'
 import BaseError from '@/Core/Components/Base/BaseError.vue'
+import BaseCheckbox from '@/Core/Components/Base/BaseCheckbox.vue'
 import { Head, useForm } from '@inertiajs/vue3'
 
 defineProps<{
@@ -70,15 +70,15 @@ const submit = () => {
                     Login to Finmaxx
                 </BaseButton>
 
-                <label class="flex items-center">
-                    <Checkbox v-model:checked="form.remember" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">
-                        Keep me signed in
-                    </span>
-                </label>
-
-                <hr aria-hidden="true" class="relative border-theme-border-secondary my-2 text-center"></hr>
+                <BaseCheckbox
+                    v-model:checked="form.remember"
+                    name="remember"
+                    label="Keep me signed in"
+                    :disabled="true"
+                />
             </div>
+
+            <hr aria-hidden="true" class="relative border-theme-border-secondary my-6 text-center"></hr>
 
             <div class="mt-4 flex flex-col gap-2">
                 <BaseButton :href="route('password.request')" variant="inverse">
