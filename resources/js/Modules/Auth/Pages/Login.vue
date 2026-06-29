@@ -6,10 +6,11 @@ import BaseError from '@/Core/Components/Base/BaseError.vue'
 import BaseCheckbox from '@/Core/Components/Base/BaseCheckbox.vue'
 import { Head, useForm } from '@inertiajs/vue3'
 
-defineProps<{
-    canResetPassword?: boolean
+interface Props {
     status?: string
-}>()
+}
+
+const { status } = defineProps<Props>() 
 
 const form = useForm({
     email: '',
@@ -44,8 +45,8 @@ const submit = () => {
                     type="email"
                     label="Email"
                     placeholder="Email address"
-                    :required="true"
                     :invalid="!!form.errors.email"
+                    required
                 />
 
                 <BaseError v-if="form.errors.email">
@@ -58,8 +59,8 @@ const submit = () => {
                     type="password"
                     label="Password"
                     placeholder="Password"
-                    :required="true"
                     :invalid="!!form.errors.password"
+                    required
                 />
             </div>
             <div class="mt-4 flex flex-col gap-4">
