@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import GuestLayout from '@/Core/Layouts/GuestLayout.vue'
-import InputError from '@/Core/Components/InputError.vue'
-import InputLabel from '@/Core/Components/InputLabel.vue'
-import TextInput from '@/Core/Components/TextInput.vue'
 import BaseInput from '@/Core/Components/Base/BaseInput.vue'
 import BaseButton from '@/Core/Components/Base/BaseButton.vue'
 import BaseError from '@/Core/Components/Base/BaseError.vue'
@@ -74,7 +71,6 @@ const submit = () => {
                     v-model:checked="form.remember"
                     name="remember"
                     label="Keep me signed in"
-                    :disabled="true"
                 />
             </div>
 
