@@ -43,6 +43,7 @@ const submit = () => {
             <div class="flex flex-col gap-1">
                 <BaseInput 
                     v-model="form.email"
+                    name="email"
                     type="email"
                     label="Email"
                     placeholder="Email address"
@@ -56,6 +57,7 @@ const submit = () => {
 
                 <BaseInput 
                     v-model="form.password"
+                    name="current-password"
                     type="password"
                     label="Password"
                     placeholder="Password"

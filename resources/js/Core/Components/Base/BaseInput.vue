@@ -9,6 +9,7 @@ interface Props {
     disabled?: boolean
     modelValue: string
     invalid?: boolean
+    name: string
 }
 
 const {
@@ -19,6 +20,7 @@ const {
     required,
     disabled,
     modelValue,
+    name,
 } = defineProps<Props>()
 
 const emit = defineEmits<{
@@ -32,15 +34,15 @@ const value = computed({
 </script>
 
 <template>
-    <label for="name" class="block text-sm/8 font-medium text-theme-text-primary">{{
+    <label :for="name" class="block text-sm/8 font-medium text-theme-text-primary">{{
         label
     }}</label>
     <div class="relative">
         <input
-            id="id"
+            :id="name"
             v-model="value"
             :type="type"
-            name="name"
+            :name="name"
             :value="modelValue"
             :placeholder="placeholder"
             :disabled="disabled"
