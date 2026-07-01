@@ -10,7 +10,7 @@ interface Props {
     status?: string
 }
 
-const { status } = defineProps<Props>() 
+const { status = '' } = defineProps<Props>()
 
 const form = useForm({
     email: '',
@@ -39,8 +39,7 @@ const submit = () => {
             <h1 class="mb-1 text-2xl font-bold">Login</h1>
 
             <div class="flex flex-col gap-1">
-    
-                <BaseInput 
+                <BaseInput
                     v-model="form.email"
                     name="email"
                     type="email"
@@ -50,11 +49,11 @@ const submit = () => {
                     required
                 />
 
-                <BaseError id="email-error" v-if="form.errors.email">
+                <BaseError v-if="form.errors.email" id="email-error">
                     {{ form.errors.email }}
                 </BaseError>
 
-                <BaseInput 
+                <BaseInput
                     v-model="form.password"
                     name="current-password"
                     type="password"
@@ -69,14 +68,13 @@ const submit = () => {
                     Login to Finmaxx
                 </BaseButton>
 
-                <BaseCheckbox
-                    v-model="form.remember"
-                    name="remember"
-                    label="Keep me signed in"
-                />
+                <BaseCheckbox v-model="form.remember" name="remember" label="Keep me signed in" />
             </div>
 
-            <hr aria-hidden="true" class="relative border-theme-border-secondary my-6 text-center"></hr>
+            <hr
+                aria-hidden="true"
+                class="relative my-6 border-theme-border-secondary text-center"
+            />
 
             <div class="mt-4 flex flex-col gap-2">
                 <BaseButton :href="route('password.request')" variant="inverse">
@@ -92,7 +90,6 @@ const submit = () => {
             <div class="relative my-2 h-4 border-b border-theme-border-primary text-center">
                 <span class="relative bg-theme-bg-primary px-5 text-xs"> or </span>
             </div> -->
-
         </form>
     </GuestLayout>
 </template>

@@ -4,13 +4,18 @@ import { Link as InertiaLink } from '@inertiajs/vue3'
 import BaseSpinner from './BaseSpinner.vue'
 
 interface Props {
-    variant: 'primary' | 'inverse'
+    variant?: 'primary' | 'inverse'
     disabled?: boolean
     processing?: boolean
     href?: string
 }
 
-const { variant = 'primary', disabled = false, processing = false, href } = defineProps<Props>()
+const {
+    variant = 'primary',
+    disabled = false,
+    processing = false,
+    href = '',
+} = defineProps<Props>()
 
 const baseClasses =
     'shadow-xs inline-flex w-full items-center gap-2 justify-center rounded-lg px-3 py-2 disabled:opacity-50 disabled:cursor-not-allowed'
@@ -39,7 +44,7 @@ const isInteractionDisabled = computed(() => disabled || processing)
         :class="[baseClasses, variantClasses[variant]]"
     >
         <template v-if="processing">
-            <BaseSpinner className="size-4" />
+            <BaseSpinner class-name="size-4" />
             <span>Loading<span aria-hidden="true">...</span></span>
         </template>
         <template v-else>
