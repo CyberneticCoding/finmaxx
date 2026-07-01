@@ -6,12 +6,6 @@ import BaseError from '@/Core/Components/Base/BaseError.vue'
 import BaseCheckbox from '@/Core/Components/Base/BaseCheckbox.vue'
 import { Head, useForm } from '@inertiajs/vue3'
 
-interface Props {
-    status?: string
-}
-
-const { status = '' } = defineProps<Props>()
-
 const form = useForm({
     email: '',
     password: '',
@@ -30,10 +24,6 @@ const submit = () => {
 <template>
     <GuestLayout>
         <Head title="Log in" />
-
-        <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
-            {{ status }}
-        </div>
 
         <form @submit.prevent="submit">
             <h1 class="mb-1 text-2xl font-bold">Login</h1>
