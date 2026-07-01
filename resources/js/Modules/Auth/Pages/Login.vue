@@ -39,17 +39,18 @@ const submit = () => {
             <h1 class="mb-1 text-2xl font-bold">Login</h1>
 
             <div class="flex flex-col gap-1">
+    
                 <BaseInput 
                     v-model="form.email"
                     name="email"
                     type="email"
                     label="Email"
-                    placeholder="Email address"
+                    placeholder="Email"
                     :invalid="!!form.errors.email"
                     required
                 />
 
-                <BaseError v-if="form.errors.email">
+                <BaseError id="email-error" v-if="form.errors.email">
                     {{ form.errors.email }}
                 </BaseError>
 

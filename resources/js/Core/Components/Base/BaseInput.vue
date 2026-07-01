@@ -39,6 +39,7 @@ const modelValue = defineModel<string | number>({ default: '' })
             :disabled="disabled"
             :required="required"
             :aria-invalid="invalid ? 'true' : undefined"
+            :aria-describedby="invalid ? `${name}-error` : undefined"
             :class="[
                 'block w-full rounded-lg border bg-theme-bg-primary px-3 py-2.5 text-sm text-theme-text-primary transition-colors placeholder:text-theme-text-tertiary disabled:cursor-not-allowed disabled:opacity-50 disabled:brightness-90 sm:text-sm/6',
                 invalid
