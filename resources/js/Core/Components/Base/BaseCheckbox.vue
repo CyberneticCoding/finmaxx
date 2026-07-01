@@ -26,7 +26,7 @@ const modelValue = defineModel<boolean>({ default: false })
             :name="name"
             type="checkbox"
             :disabled="disabled"
-            class="size-4 rounded border-theme-border-primary bg-theme-bg-surface text-theme-brand-primary transition-colors focus:outline-none focus:ring-2 focus:ring-theme-brand-primary focus:ring-offset-2 focus:ring-offset-theme-bg-primary disabled:cursor-not-allowed"
+            class="size-4 rounded border-theme-border-primary bg-theme-bg-surface text-theme-brand-primary transition-colors focus:outline-none focus:ring-2 focus:ring-theme-focus-primary focus:ring-offset-2 disabled:cursor-not-allowed"
         />
 
         <span

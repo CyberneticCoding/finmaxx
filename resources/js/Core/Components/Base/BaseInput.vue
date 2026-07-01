@@ -41,8 +41,8 @@ const modelValue = defineModel<string | number>({ default: '' })
             :class="[
                 'block w-full rounded-lg border bg-theme-bg-primary px-3 py-2.5 text-sm text-theme-text-primary transition-colors placeholder:text-theme-text-tertiary disabled:cursor-not-allowed disabled:opacity-50 disabled:brightness-90 sm:text-sm/6',
                 invalid
-                    ? 'border-theme-status-danger pr-10 hover:ring-2 hover:ring-theme-status-danger/30 focus:border-theme-status-danger focus:ring-2 focus:ring-theme-status-danger/30'
-                    : 'border-theme-border-primary',
+                    ? 'border-theme-status-danger hover:ring-2 hover:ring-theme-status-danger/30 focus:border-theme-status-danger focus:ring-1 focus:ring-theme-status-danger'
+                    : 'border-theme-border-primary focus:border-theme-focus-primary focus:ring-1 focus:ring-theme-focus-primary',
             ]"
         />
         <div

@@ -18,7 +18,7 @@ const {
 } = defineProps<Props>()
 
 const baseClasses =
-    'shadow-xs inline-flex w-full items-center gap-2 justify-center rounded-lg px-3 py-2 disabled:opacity-50 disabled:cursor-not-allowed'
+    'shadow-xs inline-flex w-full items-center gap-2 justify-center rounded-lg px-3 py-2 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-theme-focus-primary'
 
 const variantClasses = {
     primary:
