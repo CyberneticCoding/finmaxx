@@ -18,6 +18,7 @@ export default {
                         primary: 'rgb(var(--color-bg-primary) / <alpha-value>)',
                         secondary: 'rgb(var(--color-bg-secondary) / <alpha-value>)',
                         tertiary: 'rgb(var(--color-bg-tertiary) / <alpha-value>)',
+                        surface: 'rgb(var(--color-bg-surface) / <alpha-value>)',
                     },
                     text: {
                         primary: 'rgb(var(--color-text-primary) / <alpha-value>)',
@@ -37,6 +38,9 @@ export default {
                         danger: 'rgb(var(--color-danger) / <alpha-value>)',
                         warning: 'rgb(var(--color-warning) / <alpha-value>)',
                         info: 'rgb(var(--color-info) / <alpha-value>)',
+                    },
+                    focus: {
+                        primary: 'rgb(var(--color-focus-primary) / <alpha-value>)',
                     },
                 },
             },

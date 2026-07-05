@@ -26,6 +26,16 @@ export default defineConfigWithVueTs(
                     order: ['script', 'template', 'style'],
                 },
             ],
+            'vuejs-accessibility/label-has-for': [
+                'error',
+                {
+                    components: ['Label'],
+                    required: {
+                        some: ['nesting', 'id'],
+                    },
+                    allowChildren: false,
+                },
+            ],
         },
     },
     skipFormatting

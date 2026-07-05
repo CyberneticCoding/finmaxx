@@ -1,12 +1,26 @@
 import '../css/app.css'
 import './bootstrap'
 
-import { createInertiaApp } from '@inertiajs/vue3'
+import { createInertiaApp, router } from '@inertiajs/vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { createApp, DefineComponent, h } from 'vue'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
+
+// Focus on the first invalid input when an error occurs, on every request.
+router.on('error', () => {
+    setTimeout(() => {
+        const firstErrorInput = document.querySelector(
+            '[aria-invalid="true"]'
+        ) as HTMLElement | null
+
+        if (firstErrorInput) {
+            firstErrorInput.focus()
+            firstErrorInput.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
+    }, 0)
+})
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

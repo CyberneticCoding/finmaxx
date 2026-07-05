@@ -1,16 +1,10 @@
 <script setup lang="ts">
-import Checkbox from '@/Core/Components/Checkbox.vue'
 import GuestLayout from '@/Core/Layouts/GuestLayout.vue'
-import InputError from '@/Core/Components/InputError.vue'
-import InputLabel from '@/Core/Components/InputLabel.vue'
-import PrimaryButton from '@/Core/Components/PrimaryButton.vue'
-import TextInput from '@/Core/Components/TextInput.vue'
-import { Head, Link, useForm } from '@inertiajs/vue3'
-
-defineProps<{
-    canResetPassword?: boolean
-    status?: string
-}>()
+import BaseInput from '@/Core/Components/Base/BaseInput.vue'
+import BaseButton from '@/Core/Components/Base/BaseButton.vue'
+import BaseError from '@/Core/Components/Base/BaseError.vue'
+import BaseCheckbox from '@/Core/Components/Base/BaseCheckbox.vue'
+import { Head, useForm } from '@inertiajs/vue3'
 
 const form = useForm({
     email: '',
@@ -31,66 +25,61 @@ const submit = () => {
     <GuestLayout>
         <Head title="Log in" />
 
-        <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
-            {{ status }}
-        </div>
-
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
+            <h1 class="mb-1 text-2xl font-bold">Login</h1>
 
-                <TextInput
-                    id="email"
+            <div class="flex flex-col gap-1">
+                <BaseInput
                     v-model="form.email"
+                    name="email"
                     type="email"
-                    class="mt-1 block w-full"
+                    label="Email"
+                    placeholder="Email"
+                    :invalid="!!form.errors.email"
                     required
-                    autofocus
-                    autocomplete="username"
                 />
 
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
+                <BaseError v-if="form.errors.email" id="email-error">
+                    {{ form.errors.email }}
+                </BaseError>
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
+                <BaseInput
                     v-model="form.password"
+                    name="current-password"
                     type="password"
-                    class="mt-1 block w-full"
+                    label="Password"
+                    placeholder="Password"
+                    :invalid="!!form.errors.password"
                     required
-                    autocomplete="current-password"
                 />
+            </div>
+            <div class="mt-4 flex flex-col gap-4">
+                <BaseButton variant="primary" type="submit" :processing="form.processing">
+                    Login to Finmaxx
+                </BaseButton>
 
-                <InputError class="mt-2" :message="form.errors.password" />
+                <BaseCheckbox v-model="form.remember" name="remember" label="Keep me signed in" />
             </div>
 
-            <div class="mt-4 block">
-                <label class="flex items-center">
-                    <Checkbox v-model:checked="form.remember" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
-                </label>
-            </div>
+            <hr
+                aria-hidden="true"
+                class="relative my-6 border-theme-border-secondary text-center"
+            />
 
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
-                >
+            <div class="mt-4 flex flex-col gap-2">
+                <BaseButton :href="route('password.request')" variant="inverse">
                     Forgot your password?
-                </Link>
+                </BaseButton>
 
-                <PrimaryButton
-                    class="ms-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Log in
-                </PrimaryButton>
+                <BaseButton :href="route('register')" variant="inverse">
+                    No account? Register here
+                </BaseButton>
             </div>
+
+            <!-- TODO add separator when passkey integration is implemented
+            <div class="relative my-2 h-4 border-b border-theme-border-primary text-center">
+                <span class="relative bg-theme-bg-primary px-5 text-xs"> or </span>
+            </div> -->
         </form>
     </GuestLayout>
 </template>

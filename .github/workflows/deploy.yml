@@ -1,0 +1,87 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+
+jobs:
+  deploy:
+    name: Deploy to ${{ github.ref_name == 'main' && 'Production' || 'Staging' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Cache Composer Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache/files
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Cache Node Modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@master
+        env:
+          APP_ENVIRONMENT: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
+          DEPLOY_TARGET_DIR: ${{ github.ref_name == 'main' && secrets.VPS_PRODUCTION_TARGET_DIR || secrets.VPS_STAGING_TARGET_DIR }}
+          VPS_PHP_VERSION: ${{ secrets.VPS_PHP_VERSION }}
+        with:
+          host: ${{ secrets.VPS_SSH_HOST }}
+          username: ${{ secrets.VPS_SSH_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: 22
+          script: |
+            set -e
+            TARGET_DIR="${{ env.DEPLOY_TARGET_DIR }}"
+            APP_ENV="${{ env.APP_ENVIRONMENT }}"
+            PHP_VERSION="${{ env.VPS_PHP_VERSION }}"
+            
+            if [ -z "$TARGET_DIR" ]; then echo "ERROR: DEPLOY_TARGET_DIR is not set!"; exit 1; fi
+            if [ -z "$APP_ENV" ]; then echo "ERROR: APP_ENVIRONMENT could not be determined!"; exit 1; fi
+            
+            PHP_BINARY="/usr/bin/php${PHP_VERSION}"
+            ARTISAN_PATH="${TARGET_DIR}/artisan"
+
+            echo "INFO: Starting deployment for [${APP_ENV}] to ${TARGET_DIR}..."
+            cd "${TARGET_DIR}"
+            
+            echo "INFO: Enabling maintenance mode..."
+            $PHP_BINARY $ARTISAN_PATH down --env=$APP_ENV || true
+            
+            echo "INFO: Fetching latest code..."
+            git fetch origin ${{ github.ref_name }}
+            git reset --hard origin/${{ github.ref_name }}
+            git clean -fd
+            
+            echo "INFO: Installing Composer & NPM dependencies..."
+            composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+            npm ci && npm run build
+            
+            echo "INFO: Running main database migrations..."
+            $PHP_BINARY $ARTISAN_PATH migrate --force --env=$APP_ENV
+            
+            echo "INFO: Clearing and caching configurations..."
+            $PHP_BINARY $ARTISAN_PATH optimize:clear --env=$APP_ENV
+            $PHP_BINARY $ARTISAN_PATH config:cache --env=$APP_ENV
+            $PHP_BINARY $ARTISAN_PATH route:cache --env=$APP_ENV
+            $PHP_BINARY $ARTISAN_PATH view:cache --env=$APP_ENV
+            
+            echo "INFO: Reloading PHP-FPM service..."
+            sudo /usr/bin/systemctl reload php${PHP_VERSION}-fpm.service
+            
+            echo "INFO: Disabling maintenance mode..."
+            $PHP_BINARY $ARTISAN_PATH up --env=$APP_ENV
+            
+            echo "SUCCESS: Deployment finished successfully!"
