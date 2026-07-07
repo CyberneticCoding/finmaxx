@@ -19,7 +19,9 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Modules/Auth/Pages/Login');
+        return Inertia::render('Modules/Auth/Pages/Login', [
+            'status' => session('status'),
+        ]);
     }
 
     /**
