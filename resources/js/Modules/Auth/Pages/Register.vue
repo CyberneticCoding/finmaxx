@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import GuestLayout from '@/Core/Layouts/GuestLayout.vue'
-import InputError from '@/Core/Components/InputError.vue'
-import InputLabel from '@/Core/Components/InputLabel.vue'
-import PrimaryButton from '@/Core/Components/PrimaryButton.vue'
-import TextInput from '@/Core/Components/TextInput.vue'
+import BaseInput from '@/Core/Components/Base/BaseInput.vue'
+import BaseButton from '@/Core/Components/Base/BaseButton.vue'
+import BaseError from '@/Core/Components/Base/BaseError.vue'
 import { Head, Link, useForm } from '@inertiajs/vue3'
 
 const form = useForm({
@@ -27,82 +26,81 @@ const submit = () => {
         <Head title="Register" />
 
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Name" />
+            <h1 class="mb-1 text-2xl font-bold">Register</h1>
 
-                <TextInput
-                    id="name"
-                    v-model="form.name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
+            <div class="flex flex-col gap-1">
+                <div>
+                    <BaseInput
+                        v-model="form.name"
+                        name="name"
+                        type="text"
+                        label="Name"
+                        placeholder="Name"
+                        :invalid="!!form.errors.name"
+                        required
+                    />
 
-                <InputError class="mt-2" :message="form.errors.name" />
+                    <BaseError v-if="form.errors.name" id="name-error">
+                        {{ form.errors.name }}
+                    </BaseError>
+                </div>
+
+                <div>
+                    <BaseInput
+                        v-model="form.email"
+                        name="email"
+                        type="email"
+                        label="Email"
+                        placeholder="Email"
+                        :invalid="!!form.errors.email"
+                        required
+                    />
+
+                    <BaseError v-if="form.errors.email" id="email-error">
+                        {{ form.errors.email }}
+                    </BaseError>
+                </div>
+
+                <div>
+                    <BaseInput
+                        v-model="form.password"
+                        name="password"
+                        type="password"
+                        label="Password"
+                        placeholder="Password"
+                        :invalid="!!form.errors.password"
+                        required
+                    />
+                </div>
+
+                <div>
+                    <BaseInput
+                        v-model="form.password_confirmation"
+                        name="password_confirmation"
+                        type="password"
+                        label="Confirm Password"
+                        placeholder="Confirm Password"
+                        :invalid="!!form.errors.password_confirmation"
+                        required
+                    />
+
+                    <BaseError
+                        v-if="form.errors.password_confirmation"
+                        id="password_confirmation-error"
+                    >
+                        {{ form.errors.password_confirmation }}
+                    </BaseError>
+                </div>
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="email" value="Email" />
+            <div class="mt-6 flex w-full flex-col gap-4">
+                <BaseButton type="submit" :disabled="form.processing" class="w-full">
+                    Register an Account
+                </BaseButton>
 
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
-
-                <TextInput
-                    id="password_confirmation"
-                    v-model="form.password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
-            </div>
-
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    :href="route('login')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
-                >
-                    Already registered?
+                <Link :href="route('login')" class="text-center text-sm text-theme-text-secondary">
+                    Already have an account? <span class="font-bold underline">Login here</span>
                 </Link>
-
-                <PrimaryButton
-                    class="ms-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Register
-                </PrimaryButton>
             </div>
         </form>
     </GuestLayout>
