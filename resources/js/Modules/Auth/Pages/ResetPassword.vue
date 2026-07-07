@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import GuestLayout from '@/Core/Layouts/GuestLayout.vue'
-import InputError from '@/Core/Components/InputError.vue'
-import InputLabel from '@/Core/Components/InputLabel.vue'
-import PrimaryButton from '@/Core/Components/PrimaryButton.vue'
-import TextInput from '@/Core/Components/TextInput.vue'
+import BaseInput from '@/Core/Components/Base/BaseInput.vue'
+import BaseButton from '@/Core/Components/Base/BaseButton.vue'
+import BaseError from '@/Core/Components/Base/BaseError.vue'
 import { Head, useForm } from '@inertiajs/vue3'
 
-const props = defineProps<{
+interface Props {
     email: string
     token: string
-}>()
+}
+
+const { email, token } = defineProps<Props>()
 
 const form = useForm({
-    token: props.token,
-    email: props.email,
+    token: token,
+    email: email,
     password: '',
     password_confirmation: '',
 })
@@ -32,59 +33,49 @@ const submit = () => {
         <Head title="Reset Password" />
 
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
+            <h1 class="mb-1 text-2xl font-bold">Reset Password</h1>
+            <p class="text-sm text-theme-text-secondary">Enter your new password below.</p>
+            <BaseError v-if="form.errors.email" id="email-error">
+                {{ form.errors.email }}
+            </BaseError>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
+                <BaseInput
+                    name="password"
                     v-model="form.password"
                     type="password"
-                    class="mt-1 block w-full"
+                    label="Password"
+                    placeholder="Password"
+                    :invalid="!!form.errors.password"
                     required
-                    autocomplete="new-password"
                 />
-
-                <InputError class="mt-2" :message="form.errors.password" />
+                <BaseError v-if="form.errors.password" id="password-error">
+                    {{ form.errors.password }}
+                </BaseError>
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
-
-                <TextInput
-                    id="password_confirmation"
+                <BaseInput
+                    name="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"
-                    class="mt-1 block w-full"
+                    label="Confirm Password"
+                    placeholder="Confirm Password"
+                    :invalid="!!form.errors.password_confirmation"
                     required
-                    autocomplete="new-password"
                 />
-
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
+                <BaseError
+                    v-if="form.errors.password_confirmation"
+                    id="password_confirmation-error"
+                >
+                    {{ form.errors.password_confirmation }}
+                </BaseError>
             </div>
 
-            <div class="mt-4 flex items-center justify-end">
-                <PrimaryButton
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
+            <div class="mt-4 flex flex-col gap-4">
+                <BaseButton type="submit" :disabled="form.processing" class="w-full">
                     Reset Password
-                </PrimaryButton>
+                </BaseButton>
             </div>
         </form>
     </GuestLayout>
