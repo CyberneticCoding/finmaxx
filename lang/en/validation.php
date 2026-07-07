@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -179,8 +181,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'password_confirmation' => [
+            'same' => 'The passwords do not currently match. Please fill in the same password in both fields.',
         ],
     ],
 
@@ -195,6 +197,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'password' => 'password',
+        'password_confirmation' => 'confirm password',
+    ],
 
 ];

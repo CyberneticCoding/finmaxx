@@ -12,7 +12,7 @@ const { id } = defineProps<Props>()
 <template>
     <span
         :id="id"
-        class="mt-1 block text-xs font-semibold text-theme-status-danger"
+        class="mt-1 block text-sm font-semibold text-theme-status-danger"
         role="alert"
         aria-live="polite"
     >

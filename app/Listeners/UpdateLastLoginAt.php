@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Listeners;
 
 use Illuminate\Auth\Events\Login;
+use Illuminate\Support\Facades\Log;
 
 class UpdateLastLoginAt
 {
