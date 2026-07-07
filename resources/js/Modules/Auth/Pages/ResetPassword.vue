@@ -6,14 +6,16 @@ import PrimaryButton from '@/Core/Components/PrimaryButton.vue'
 import TextInput from '@/Core/Components/TextInput.vue'
 import { Head, useForm } from '@inertiajs/vue3'
 
-const props = defineProps<{
+interface Props {
     email: string
     token: string
-}>()
+}
+
+const { email, token } = defineProps<Props>()
 
 const form = useForm({
-    token: props.token,
-    email: props.email,
+    token: token,
+    email: email,
     password: '',
     password_confirmation: '',
 })
