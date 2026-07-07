@@ -80,7 +80,7 @@ const submit = () => {
                         type="password"
                         label="Confirm Password"
                         placeholder="Confirm Password"
-                        :invalid="!!form.errors.password_confirmation"
+                        :invalid="!!form.errors.password || !!form.errors.password_confirmation"
                         required
                     />
 
