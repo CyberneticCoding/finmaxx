@@ -3,6 +3,7 @@ import GuestLayout from '@/Core/Layouts/GuestLayout.vue'
 import BaseInput from '@/Core/Components/Base/BaseInput.vue'
 import BaseButton from '@/Core/Components/Base/BaseButton.vue'
 import BaseError from '@/Core/Components/Base/BaseError.vue'
+import BaseAlert from '@/Core/Components/Base/BaseAlert.vue'
 import { Head, Link, useForm } from '@inertiajs/vue3'
 
 interface Props {
@@ -29,9 +30,9 @@ const submit = () => {
             No worries. Enter your email below and we'll send you a link to reset your password.
         </p>
 
-        <div v-if="status" class="mb-4 text-sm font-medium text-green-600 dark:text-green-400">
+        <BaseAlert v-if="status" class="my-2" type="success">
             {{ status }}
-        </div>
+        </BaseAlert>
 
         <form @submit.prevent="submit">
             <div>
