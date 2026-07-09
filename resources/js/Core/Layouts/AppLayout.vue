@@ -12,7 +12,7 @@ const layoutStore = useLayoutStore()
         <AppSidebar />
 
         <!-- Header & Main / Right column -->
-        <div class="flex min-w-0 flex-1 flex-col overflow-hidden">
+        <div class="flex min-w-0 flex-1 flex-col overflow-hidden" :inert="layoutStore.isMobileOpen">
             <header
                 class="flex h-16 flex-shrink-0 items-center gap-4 border-b border-theme-border-secondary bg-theme-bg-primary px-5"
             >
