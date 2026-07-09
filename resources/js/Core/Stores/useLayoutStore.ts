@@ -9,8 +9,24 @@ export const useLayoutStore = defineStore('layout', () => {
         localStorage.setItem('sidebar_expanded', String(isSidebarExpanded.value))
     }
 
+    const isMobileOpen = ref<boolean>(false)
+
+    function openMobile(): void {
+        isMobileOpen.value = true
+    }
+    function closeMobile(): void {
+        isMobileOpen.value = false
+    }
+    function toggleMobile(): void {
+        isMobileOpen.value = !isMobileOpen.value
+    }
+
     return {
         isSidebarExpanded,
         toggleSidebar,
+        isMobileOpen,
+        openMobile,
+        closeMobile,
+        toggleMobile,
     }
 })
