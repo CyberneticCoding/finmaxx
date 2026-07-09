@@ -51,6 +51,9 @@ watch(
             layoutStore.isMobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
             layoutStore.isSidebarExpanded ? 'md:w-56' : 'md:w-16',
         ]"
+        :role="layoutStore.isMobileOpen ? 'dialog' : undefined"
+        :aria-modal="layoutStore.isMobileOpen ? 'true' : undefined"
+        aria-label="Navigation sidebar"
     >
         <!-- Mobile Logo and Close Button -->
         <div class="flex items-center justify-between px-4 py-4 md:hidden">
