@@ -1,11 +1,11 @@
 <script setup lang="ts">
-// import AppSidebar from '@/Core/Components/AppSidebar.vue'
+import AppSidebar from '@/Core/Components/AppSidebar.vue'
 </script>
 
 <template>
     <div class="flex h-screen overflow-hidden bg-theme-bg-secondary">
         <!-- Sidebar / Left column -->
-        <!-- <AppSidebar /> -->
+        <AppSidebar />
 
         <!-- Header & Main / Right column -->
         <div class="flex min-w-0 flex-1 flex-col overflow-hidden">
