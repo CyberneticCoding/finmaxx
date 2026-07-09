@@ -3,6 +3,7 @@ import { nextTick, ref, watch } from 'vue'
 import { Bars3Icon } from '@heroicons/vue/24/outline'
 import AppSidebar from '@/Core/Components/AppSidebar.vue'
 import { useLayoutStore } from '@/Core/Stores/useLayoutStore'
+import BaseSkipToMain from '@/Core/Components/Base/BaseSkipToMain.vue'
 
 const layoutStore = useLayoutStore()
 
@@ -17,6 +18,7 @@ watch(
 </script>
 
 <template>
+    <BaseSkipToMain />
     <div class="flex h-screen overflow-hidden bg-theme-bg-secondary">
         <!-- Sidebar / Left column -->
         <AppSidebar />
@@ -37,7 +39,7 @@ watch(
                 </button>
             </header>
 
-            <main class="flex-1 overflow-auto p-4">
+            <main id="main" tabindex="-1" class="flex-1 overflow-auto p-4">
                 <slot />
             </main>
         </div>

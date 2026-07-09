@@ -56,7 +56,7 @@ watch(
     <aside
         :class="[
             'transition-width-spring flex flex-col border-r border-theme-border-primary bg-theme-bg-primary',
-            'fixed inset-y-0 left-0 z-50 w-full sm:w-56 md:relative md:inset-auto md:z-20',
+            'fixed inset-y-0 left-0 z-40 w-full sm:w-56 md:relative md:inset-auto md:z-20',
             layoutStore.isMobileOpen
                 ? 'visible translate-x-0'
                 : 'invisible -translate-x-full md:visible md:translate-x-0',
