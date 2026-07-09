@@ -38,10 +38,16 @@ watch(
 </script>
 
 <template>
+    <div
+        v-if="layoutStore.isMobileOpen"
+        class="backdrop-blur-xs fixed inset-0 z-40 bg-black/40 md:hidden"
+        @click="layoutStore.closeMobile"
+    />
+
     <aside
         :class="[
             'transition-width-spring flex flex-col border-r border-theme-border-primary bg-theme-bg-primary',
-            'fixed inset-y-0 left-0 z-50 w-full md:relative md:inset-auto md:z-20',
+            'fixed inset-y-0 left-0 z-50 w-full sm:w-56 md:relative md:inset-auto md:z-20',
             layoutStore.isMobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
             layoutStore.isSidebarExpanded ? 'md:w-56' : 'md:w-16',
         ]"
@@ -52,10 +58,10 @@ watch(
             <button
                 type="button"
                 aria-label="Close navigation sidebar"
-                class="rounded-md p-1 text-theme-text-secondary transition-colors hover:bg-theme-bg-tertiary hover:text-theme-text-primary focus:outline-none focus:ring-2 focus:ring-theme-brand-primary"
+                class="rounded-md p-2 text-theme-text-secondary transition-colors hover:bg-theme-bg-tertiary hover:text-theme-text-primary focus:outline-none focus:ring-2 focus:ring-theme-focus-primary"
                 @click="layoutStore.closeMobile"
             >
-                <XMarkIcon aria-hidden="true" class="h-5 w-5 stroke-2" />
+                <XMarkIcon aria-hidden="true" class="size-6 stroke-2" />
             </button>
         </div>
 
@@ -72,7 +78,7 @@ watch(
                     :is-active="isItemActive(item)"
                     :icon="item.icon"
                     :label="item.label"
-                    :expanded="layoutStore.isSidebarExpanded"
+                    :expanded="layoutStore.isMobileOpen || layoutStore.isSidebarExpanded"
                 />
             </div>
 
@@ -85,7 +91,7 @@ watch(
                 >
                     <button
                         type="button"
-                        class="group flex w-full cursor-pointer items-center justify-start gap-2 rounded-md px-3 py-1.5 transition-colors duration-150 hover:bg-theme-bg-tertiary focus:outline-none focus:ring-2 focus:ring-theme-brand-primary"
+                        class="group flex w-full cursor-pointer items-center justify-start gap-2 rounded-md px-3 py-1.5 transition-colors duration-150 hover:bg-theme-bg-tertiary focus:outline-none focus:ring-2 focus:ring-theme-focus-primary"
                         @click="layoutStore.toggleSidebar"
                     >
                         <ArrowDownTrayIcon

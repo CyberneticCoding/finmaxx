@@ -14,7 +14,7 @@ interface Props {
 const { href, isActive = false, expanded = false, label, icon } = defineProps<Props>()
 
 const baseRowClasses =
-    'group relative flex w-full cursor-pointer items-center justify-start gap-2 rounded-md px-3 py-1.5 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-theme-brand-primary'
+    'group relative flex w-full cursor-pointer items-center justify-start gap-2 rounded-md px-3 py-1.5 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-theme-focus-primary'
 const rowActive =
     'bg-theme-brand-primary hover:bg-theme-brand-primary-hover focus-theme-control-offset focus:ring-offset-2'
 const rowInactive = 'hover:bg-theme-bg-tertiary focus-theme-control'

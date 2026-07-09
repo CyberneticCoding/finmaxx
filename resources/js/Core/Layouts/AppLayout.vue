@@ -19,7 +19,7 @@ const layoutStore = useLayoutStore()
                 <button
                     aria-label="Open navigation sidebar"
                     type="button"
-                    class="rounded-md p-1 text-theme-text-secondary transition-colors hover:bg-theme-bg-tertiary hover:text-theme-text-primary focus:outline-none focus:ring-2 focus:ring-theme-brand-primary md:hidden"
+                    class="rounded-md p-1 text-theme-text-secondary transition-colors hover:bg-theme-bg-tertiary hover:text-theme-text-primary focus:outline-none focus:ring-2 focus:ring-theme-focus-primary md:hidden"
                     @click="layoutStore.toggleMobile"
                 >
                     <Bars3Icon class="h-5 w-5 stroke-[1.7]" />
