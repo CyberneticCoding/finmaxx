@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-    content?: string
+    content: string
     disabled?: boolean
 }
 
