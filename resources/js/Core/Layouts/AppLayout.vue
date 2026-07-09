@@ -1,9 +1,19 @@
 <script setup lang="ts">
+import { nextTick, ref, watch } from 'vue'
 import { Bars3Icon } from '@heroicons/vue/24/outline'
 import AppSidebar from '@/Core/Components/AppSidebar.vue'
 import { useLayoutStore } from '@/Core/Stores/useLayoutStore'
 
 const layoutStore = useLayoutStore()
+
+const hamburgerRef = ref<HTMLButtonElement | null>(null)
+
+watch(
+    () => layoutStore.isMobileOpen,
+    (open) => {
+        if (!open) nextTick(() => hamburgerRef.value?.focus())
+    }
+)
 </script>
 
 <template>
@@ -17,6 +27,7 @@ const layoutStore = useLayoutStore()
                 class="flex h-16 flex-shrink-0 items-center gap-4 border-b border-theme-border-secondary bg-theme-bg-primary px-5"
             >
                 <button
+                    ref="hamburgerRef"
                     aria-label="Open navigation sidebar"
                     type="button"
                     class="rounded-md p-1 text-theme-text-secondary transition-colors hover:bg-theme-bg-tertiary hover:text-theme-text-primary focus:outline-none focus:ring-2 focus:ring-theme-focus-primary md:hidden"

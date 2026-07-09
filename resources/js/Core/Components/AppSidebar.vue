@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, markRaw, type Component } from 'vue'
+import { ref, watch, nextTick, markRaw, type Component } from 'vue'
 import { HomeIcon, ArrowDownTrayIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { usePage } from '@inertiajs/vue3'
 import { useLayoutStore } from '@/Core/Stores/useLayoutStore'
@@ -29,8 +29,16 @@ function isItemActive(item: NavItem): boolean {
     return route().current(item.activePattern || item.routeName)
 }
 
+const closeButtonRef = ref<HTMLButtonElement | null>(null)
+
+watch(
+    () => layoutStore.isMobileOpen,
+    (open) => {
+        if (open) nextTick(() => closeButtonRef.value?.focus())
+    }
+)
+
 const page = usePage()
-// Close mobile sidebar when page changes
 watch(
     () => page.url,
     () => layoutStore.closeMobile()
@@ -42,13 +50,16 @@ watch(
         v-if="layoutStore.isMobileOpen"
         class="backdrop-blur-xs fixed inset-0 z-40 bg-black/40 md:hidden"
         @click="layoutStore.closeMobile"
+        aria-hidden="true"
     />
 
     <aside
         :class="[
             'transition-width-spring flex flex-col border-r border-theme-border-primary bg-theme-bg-primary',
             'fixed inset-y-0 left-0 z-50 w-full sm:w-56 md:relative md:inset-auto md:z-20',
-            layoutStore.isMobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
+            layoutStore.isMobileOpen
+                ? 'visible translate-x-0'
+                : 'invisible -translate-x-full md:visible md:translate-x-0',
             layoutStore.isSidebarExpanded ? 'md:w-56' : 'md:w-16',
         ]"
         :role="layoutStore.isMobileOpen ? 'dialog' : undefined"
@@ -59,6 +70,7 @@ watch(
         <div class="flex items-center justify-between px-4 py-4 md:hidden">
             <ApplicationLogo aria-hidden="true" class="h-5 w-auto" />
             <button
+                ref="closeButtonRef"
                 type="button"
                 aria-label="Close navigation sidebar"
                 class="rounded-md p-2 text-theme-text-secondary transition-colors hover:bg-theme-bg-tertiary hover:text-theme-text-primary focus:outline-none focus:ring-2 focus:ring-theme-focus-primary"
