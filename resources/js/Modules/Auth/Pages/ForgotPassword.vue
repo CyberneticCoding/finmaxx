@@ -37,8 +37,8 @@ const submit = () => {
         <form @submit.prevent="submit">
             <div>
                 <BaseInput
-                    name="email"
                     v-model="form.email"
+                    name="email"
                     type="email"
                     label="Email"
                     placeholder="Email"

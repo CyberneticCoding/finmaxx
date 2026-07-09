@@ -41,8 +41,8 @@ const submit = () => {
 
             <div class="mt-4">
                 <BaseInput
-                    name="password"
                     v-model="form.password"
+                    name="password"
                     type="password"
                     label="Password"
                     placeholder="Password"
@@ -56,8 +56,8 @@ const submit = () => {
 
             <div class="mt-4">
                 <BaseInput
-                    name="password_confirmation"
                     v-model="form.password_confirmation"
+                    name="password_confirmation"
                     type="password"
                     label="Confirm Password"
                     placeholder="Confirm Password"
