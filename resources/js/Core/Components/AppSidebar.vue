@@ -108,6 +108,12 @@ watch(
                         type="button"
                         class="group flex w-full cursor-pointer items-center justify-start gap-2 rounded-md px-3 py-1.5 transition-colors duration-150 hover:bg-theme-bg-tertiary focus:outline-none focus:ring-2 focus:ring-theme-focus-primary"
                         @click="layoutStore.toggleSidebar"
+                        :aria-label="
+                            layoutStore.isSidebarExpanded
+                                ? 'Collapse navigation sidebar'
+                                : 'Expand navigation sidebar'
+                        "
+                        :aria-expanded="layoutStore.isSidebarExpanded"
                     >
                         <ArrowDownTrayIcon
                             :class="[
@@ -117,6 +123,7 @@ watch(
                         />
                         <span
                             v-if="layoutStore.isSidebarExpanded"
+                            aria-hidden="true"
                             class="min-w-0 truncate text-sm font-medium leading-none text-theme-text-secondary group-hover:text-theme-text-primary"
                         >
                             Collapse
