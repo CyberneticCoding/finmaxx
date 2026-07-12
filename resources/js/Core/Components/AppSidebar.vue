@@ -8,6 +8,7 @@ import BaseTooltip from '@/Core/Components/Base/BaseTooltip.vue'
 import ApplicationLogo from '@/Core/Components/ApplicationLogo.vue'
 
 const layoutStore = useLayoutStore()
+const page = usePage()
 
 interface NavItem {
     label: string
@@ -26,6 +27,7 @@ const navItems: NavItem[] = [
 ]
 
 function isItemActive(item: NavItem): boolean {
+    void page.url // Evaluate page.url to register the dependency, to make this function re-run on Inertia page change
     return route().current(item.activePattern || item.routeName)
 }
 
@@ -38,7 +40,6 @@ watch(
     }
 )
 
-const page = usePage()
 watch(
     () => page.url,
     () => layoutStore.closeMobile()
@@ -49,8 +50,8 @@ watch(
     <div
         v-if="layoutStore.isMobileOpen"
         class="backdrop-blur-xs fixed inset-0 z-40 bg-black/40 md:hidden"
-        @click="layoutStore.closeMobile"
         aria-hidden="true"
+        @click="layoutStore.closeMobile"
     />
 
     <aside
@@ -107,13 +108,13 @@ watch(
                     <button
                         type="button"
                         class="group flex w-full cursor-pointer items-center justify-start gap-2 rounded-md px-3 py-1.5 transition-colors duration-150 hover:bg-theme-bg-tertiary focus:outline-none focus:ring-2 focus:ring-theme-focus-primary"
-                        @click="layoutStore.toggleSidebar"
                         :aria-label="
                             layoutStore.isSidebarExpanded
                                 ? 'Collapse navigation sidebar'
                                 : 'Expand navigation sidebar'
                         "
                         :aria-expanded="layoutStore.isSidebarExpanded"
+                        @click="layoutStore.toggleSidebar"
                     >
                         <ArrowDownTrayIcon
                             :class="[
