@@ -11,10 +11,10 @@ interface AuthUser {
 }
 
 const page = usePage()
-const user = computed<AuthUser | null>(() => (page.props.auth as any)?.user ?? null)
+const user = computed<AuthUser>(() => (page.props.auth as { user: AuthUser }).user)
 
 const userInitials = computed<string>(() =>
-    (user.value?.name ?? '')
+    user.value.name
         .split(' ')
         .slice(0, 2)
         .map((n: string) => n[0])
@@ -34,8 +34,8 @@ const panelFooterClasses = 'border-t border-theme-border-secondary'
     <BaseMenu>
         <template #trigger>
             <button type="button" :class="triggerClasses">
-                <div :class="avatarClasses">{{ userInitials || '?' }}</div>
-                <span class="hidden sm:block">{{ user?.name ?? 'Account' }}</span>
+                <div :class="avatarClasses">{{ userInitials }}</div>
+                <span class="hidden sm:block">{{ user.name }}</span>
                 <ChevronDownIcon class="size-4 text-theme-text-tertiary" />
             </button>
         </template>
@@ -43,7 +43,7 @@ const panelFooterClasses = 'border-t border-theme-border-secondary'
         <div :class="panelHeaderClasses">
             <p class="text-xs text-theme-text-tertiary">Signed in as</p>
             <p class="truncate text-sm font-medium text-theme-text-primary">
-                {{ user?.email ?? '' }}
+                {{ user.email }}
             </p>
         </div>
 
