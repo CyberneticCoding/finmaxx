@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AuthenticatedLayout from '@/Core/Layouts/AuthenticatedLayout.vue'
+import AppLayout from '@/Core/Layouts/AppLayout.vue'
 import DeleteUserForm from '@/Modules/Settings/Components/DeleteUserForm.vue'
 import UpdatePasswordForm from '@/Modules/Settings/Components/UpdatePasswordForm.vue'
 import UpdateProfileInformationForm from '@/Modules/Settings/Components/UpdateProfileInformationForm.vue'
@@ -14,7 +14,7 @@ defineProps<{
 <template>
     <Head title="Profile" />
 
-    <AuthenticatedLayout>
+    <AppLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
                 Profile
@@ -40,5 +40,5 @@ defineProps<{
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </AppLayout>
 </template>

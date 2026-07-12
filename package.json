@@ -37,6 +37,8 @@
         "vue-tsc": "^2.0.24"
     },
     "dependencies": {
-        "@heroicons/vue": "^2.2.0"
+        "@headlessui/vue": "^1.7.23",
+        "@heroicons/vue": "^2.2.0",
+        "pinia": "^3.0.4"
     }
 }
