@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import InputError from '@/Core/Components/InputError.vue'
-import InputLabel from '@/Core/Components/InputLabel.vue'
-import PrimaryButton from '@/Core/Components/PrimaryButton.vue'
-import TextInput from '@/Core/Components/TextInput.vue'
+import InputError from '@/Core/UI/Components/InputError.vue'
+import InputLabel from '@/Core/UI/Components/InputLabel.vue'
+import PrimaryButton from '@/Core/UI/Components/PrimaryButton.vue'
+import TextInput from '@/Core/UI/Components/TextInput.vue'
 import { Link, useForm, usePage } from '@inertiajs/vue3'
 
 defineProps<{

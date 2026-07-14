@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import AppHeader from '@/Core/Components/AppHeader.vue'
-import AppSidebar from '@/Core/Components/AppSidebar.vue'
-import BaseSkipToMain from '@/Core/Components/Base/BaseSkipToMain.vue'
-import { useLayoutStore } from '@/Core/Stores/useLayoutStore'
+import AppHeader from '@/Core/Layout/Components/AppHeader.vue'
+import AppSidebar from '@/Core/Layout/Components/AppSidebar.vue'
+import BaseSkipToMain from '@/Core/Layout/Components/SkipToMain.vue'
+import { useLayoutStore } from '@/Core/Layout/Stores/useLayoutStore'
 
 const layoutStore = useLayoutStore()
 </script>
