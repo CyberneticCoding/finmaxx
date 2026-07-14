@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type Component } from 'vue'
 import { Link } from '@inertiajs/vue3'
-import BaseTooltip from '@/Core/Components/Base/BaseTooltip.vue'
+import BaseTooltip from '@/Core/UI/Components/Base/BaseTooltip.vue'
 
 interface Props {
     href: string

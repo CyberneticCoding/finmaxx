@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { nextTick, ref, watch } from 'vue'
 import { Bars3Icon } from '@heroicons/vue/24/outline'
-import UserMenu from '@/Core/Components/UserMenu.vue'
-import { useLayoutStore } from '@/Core/Stores/useLayoutStore'
+import UserMenu from '@/Core/Layout/Components/UserMenu.vue'
+import { useLayoutStore } from '@/Core/Layout/Stores/useLayoutStore'
 
 const layoutStore = useLayoutStore()
 

@@ -2,8 +2,8 @@
 import { computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
 import { ChevronDownIcon } from '@heroicons/vue/24/outline'
-import BaseMenu from '@/Core/Components/Base/BaseMenu.vue'
-import BaseMenuItem from '@/Core/Components/Base/BaseMenuItem.vue'
+import BaseMenu from '@/Core/UI/Components/Base/BaseMenu.vue'
+import BaseMenuItem from '@/Core/UI/Components/Base/BaseMenuItem.vue'
 
 interface AuthUser {
     name: string

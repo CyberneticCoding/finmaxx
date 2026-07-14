@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppLayout from '@/Core/Layouts/AppLayout.vue'
+import AppLayout from '@/Core/Layout/Layouts/AppLayout.vue'
 import DeleteUserForm from '@/Modules/Settings/Components/DeleteUserForm.vue'
 import UpdatePasswordForm from '@/Modules/Settings/Components/UpdatePasswordForm.vue'
 import UpdateProfileInformationForm from '@/Modules/Settings/Components/UpdateProfileInformationForm.vue'

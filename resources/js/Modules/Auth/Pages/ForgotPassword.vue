@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import GuestLayout from '@/Core/Layouts/GuestLayout.vue'
-import BaseInput from '@/Core/Components/Base/BaseInput.vue'
-import BaseButton from '@/Core/Components/Base/BaseButton.vue'
-import BaseError from '@/Core/Components/Base/BaseError.vue'
-import BaseAlert from '@/Core/Components/Base/BaseAlert.vue'
+import GuestLayout from '@/Core/Layout/Layouts/GuestLayout.vue'
+import BaseInput from '@/Core/UI/Components/Base/BaseInput.vue'
+import BaseButton from '@/Core/UI/Components/Base/BaseButton.vue'
+import BaseError from '@/Core/UI/Components/Base/BaseError.vue'
+import BaseAlert from '@/Core/UI/Components/Base/BaseAlert.vue'
 import { Head, Link, useForm } from '@inertiajs/vue3'
 
 interface Props {

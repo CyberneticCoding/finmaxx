@@ -2,10 +2,10 @@
 import { ref, watch, nextTick, markRaw, type Component } from 'vue'
 import { HomeIcon, ArrowDownTrayIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { usePage } from '@inertiajs/vue3'
-import { useLayoutStore } from '@/Core/Stores/useLayoutStore'
-import BaseNavigationItem from '@/Core/Components/Base/BaseNavigationItem.vue'
-import BaseTooltip from '@/Core/Components/Base/BaseTooltip.vue'
-import ApplicationLogo from '@/Core/Components/ApplicationLogo.vue'
+import { useLayoutStore } from '@/Core/Layout/Stores/useLayoutStore'
+import BaseNavigationItem from '@/Core/UI/Components/Base/BaseNavigationItem.vue'
+import BaseTooltip from '@/Core/UI/Components/Base/BaseTooltip.vue'
+import ApplicationLogo from '@/Core/Layout/Components/ApplicationLogo.vue'
 
 const layoutStore = useLayoutStore()
 const page = usePage()
