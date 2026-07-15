@@ -33,7 +33,7 @@ const displayedModal = computed(() => store.visible ?? store.leaving)
  * Determines if there is any modal at all currently in the stack.
  * Used for keeping animations running until all modals are fully closed
  */
-const isDialogOpen = computed(() => store.visible !== null || store.leaving !== null)
+const isDialogOpen = computed(() => store.visible !== null)
 
 /* Determines which modals (active and hidden) should be kept alive in the KeepAlive component */
 const keepAliveInclude = computed<string[]>(() =>
@@ -44,8 +44,9 @@ const keepAliveInclude = computed<string[]>(() =>
  *   Event Handlers / Closing Logic
  * ============================================================== */
 
-/* Handles the closing  */
+/* Handles the closing */
 const handleAttemptClose = () => {
+    console.log('handleAttemptClose')
     const modal = displayedModal.value
     if (!modal || !modal.options.dismissable) return
     store.requestClose(modal.id)
