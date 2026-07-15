@@ -2,6 +2,7 @@
 import AppHeader from '@/Core/Layout/Components/AppHeader.vue'
 import AppSidebar from '@/Core/Layout/Components/AppSidebar.vue'
 import BaseSkipToMain from '@/Core/Layout/Components/SkipToMain.vue'
+import ModalHost from '@/Core/Modal/Components/ModalHost.vue'
 import { useLayoutStore } from '@/Core/Layout/Stores/useLayoutStore'
 
 const layoutStore = useLayoutStore()
@@ -22,4 +23,6 @@ const layoutStore = useLayoutStore()
             </main>
         </div>
     </div>
+
+    <ModalHost />
 </template>
