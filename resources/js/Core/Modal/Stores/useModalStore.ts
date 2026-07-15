@@ -20,17 +20,17 @@ export const useModalStore = defineStore('modalStore', {
 
     getters: {
         /**
-         * Returns the modal currently displayed to the user
+         * The single active modal in the stack
          */
         visible(state): ModalEntry | null {
             return state.stack.find((e) => e.phase === 'active') ?? null
         },
 
         /**
-         * Check if there is any modal currently active
+         * The topmost modal currently in its exit animation
          */
-        isOpen(state): boolean {
-            return state.stack.some((e) => e.phase === 'active')
+        leaving(state): ModalEntry | null {
+            return state.stack.findLast((e) => e.phase === 'leaving') ?? null
         },
     },
 
