@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel } from '@headlessui/vue'
 import { useModalStore } from '../Stores/useModalStore'
-import { computed, KeepAlive } from 'vue'
+import { computed, KeepAlive, provide } from 'vue'
 import type { ModalSize } from '../Types/modalTypes'
+import { MODAL_CONTEXT_KEY, ModalContext } from '../Keys/modalContext'
 
 const store = useModalStore()
 
@@ -55,6 +56,17 @@ const handleAfterLeave = () => {
     const modal = store.leaving
     if (modal) store.finalizeClose(modal.id)
 }
+
+/* ==============================================================
+ *              Provide Close Method
+ * ============================================================== */
+
+provide(MODAL_CONTEXT_KEY, {
+    close(result?: unknown) {
+        const id = displayedModal.value?.id
+        if (id) store.requestClose(id, result)
+    },
+} satisfies ModalContext)
 </script>
 
 <template>
