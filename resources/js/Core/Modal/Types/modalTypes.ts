@@ -1,5 +1,9 @@
 import type { Component } from 'vue'
 
+/* ==============================================================
+ *   Modal Types
+ * ============================================================== */
+
 /**
  * Defines the width of the modal.
  */
@@ -43,4 +47,34 @@ export interface OpenResult {
     id: string
     /** The promise that resolves with the modal's result when it closes. */
     promise: Promise<unknown>
+}
+
+/* ==============================================================
+ *   Utility Options
+ * ============================================================== */
+
+/**
+ * Base options for all dialogs.
+ */
+interface BaseDialogOptions {
+    title: string
+    description?: string
+    icon?: 'warning' | 'success' | 'info'
+    size?: ModalSize
+}
+
+/**
+ * Defines the options for the confirm() helper function.
+ */
+export interface ConfirmOptions extends BaseDialogOptions {
+    confirmLabel?: string
+    cancelLabel?: string
+    onConfirm?: () => unknown | Promise<unknown>
+}
+
+/**
+ * Defines the options for the popup() helper function.
+ */
+export interface PopupOptions extends BaseDialogOptions {
+    closeLabel?: string
 }
