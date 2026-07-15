@@ -1,32 +1,6 @@
 import { defineStore } from 'pinia'
 import { markRaw, type Component } from 'vue'
-
-/* ==============================================================
- *              Types
- * ============================================================== */
-
-export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'full'
-export type ModalPhase = 'active' | 'hidden' | 'leaving'
-
-export interface ModalOptions {
-    size?: ModalSize
-    dismissable?: boolean // When true, clicking the backdrop or pressing Escape closes the modal. Defaults to true
-}
-
-export interface ModalEntry {
-    id: string
-    component: Component
-    props: Record<string, unknown>
-    options: Required<ModalOptions>
-    phase: ModalPhase
-    _resolve: (result: unknown) => void
-    result?: unknown
-}
-
-export interface OpenResult {
-    id: string
-    promise: Promise<unknown>
-}
+import type { ModalEntry, ModalOptions, OpenResult } from '../Types/modalTypes'
 
 /* ==============================================================
  *              Id Generator
