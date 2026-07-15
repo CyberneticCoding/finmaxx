@@ -3,14 +3,14 @@ import { markRaw, type Component } from 'vue'
 import type { ModalEntry, ModalOptions, OpenResult } from '../Types/modalTypes'
 
 /* ==============================================================
- *              Id Generator
+ *   Id Generator
  * ============================================================== */
 
 let _counter = 0
 const generateId = (): string => `modal-${++_counter}-${Math.random().toString(36).slice(2, 7)}`
 
 /* ==============================================================
- *              Modal Store
+ *   Modal Store
  * ============================================================== */
 
 export const useModalStore = defineStore('modalStore', {

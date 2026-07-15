@@ -8,7 +8,7 @@ import { MODAL_CONTEXT_KEY, ModalContext } from '../Keys/modalContext'
 const store = useModalStore()
 
 /* ==============================================================
- *              Styling Classes
+ *   Styling Classes
  * ============================================================== */
 
 const SIZE_CLASSES: Record<ModalSize, string> = {
@@ -24,7 +24,7 @@ const panelSizeClass = computed(() =>
 )
 
 /* ==============================================================
- *              Display Properties
+ *   Display Properties
  * ============================================================== */
 
 const displayedModal = computed(() => store.visible ?? store.leaving)
@@ -41,7 +41,7 @@ const keepAliveInclude = computed<string[]>(() =>
 )
 
 /* ==============================================================
- *              Event Handlers / Closing Logic
+ *   Event Handlers / Closing Logic
  * ============================================================== */
 
 /* Handles the closing  */
@@ -58,7 +58,7 @@ const handleAfterLeave = () => {
 }
 
 /* ==============================================================
- *              Provide Close Method
+ *   Provide Close Method
  * ============================================================== */
 
 provide(MODAL_CONTEXT_KEY, {
