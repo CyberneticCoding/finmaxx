@@ -71,8 +71,8 @@ async function handleConfirm() {
                 <BaseButton
                     variant="inverse"
                     :disabled="isConfirming"
-                    @click="close"
                     class="w-full sm:w-auto"
+                    @click="close"
                 >
                     {{ cancelLabel }}
                 </BaseButton>
@@ -81,15 +81,15 @@ async function handleConfirm() {
                     :variant="buttonVariant"
                     :processing="isConfirming"
                     :disabled="isConfirming || isClosing"
-                    @click="handleConfirm"
                     class="w-full sm:w-auto"
+                    @click="handleConfirm"
                 >
                     {{ confirmLabel }}
                 </BaseButton>
             </template>
 
             <!-- Popup: single close button -->
-            <BaseButton v-else variant="inverse" @click="close" class="mx-24 w-auto">
+            <BaseButton v-else variant="inverse" class="mx-24 w-auto" @click="close">
                 {{ cancelLabel }}
             </BaseButton>
         </template>

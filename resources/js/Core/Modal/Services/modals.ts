@@ -1,4 +1,4 @@
-import { markRaw, type App } from 'vue'
+import { markRaw } from 'vue'
 import { useModalStore } from '../Stores/useModalStore'
 import ConfirmDialog from '../Components/ConfirmDialog.vue'
 import type { ConfirmOptions, PopupOptions, ModalOptions } from '../Types/modalTypes'

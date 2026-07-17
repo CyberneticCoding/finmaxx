@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel } from '@headlessui/vue'
 import { useModalStore } from '../Stores/useModalStore'
-import { computed, KeepAlive, nextTick, provide } from 'vue'
+import { computed, nextTick, provide } from 'vue'
 import type { ModalSize } from '../Types/modalTypes'
 import { MODAL_CONTEXT_KEY, ModalContext } from '../Keys/modalContext'
 
