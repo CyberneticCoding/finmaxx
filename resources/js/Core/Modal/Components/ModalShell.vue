@@ -73,7 +73,6 @@ const hasFooter = computed(() => !!slots.footer)
         <div
             v-if="title || icon || showClose"
             class="flex items-start justify-between gap-3 px-6 py-4"
-            :class="{ 'border-b border-theme-border-secondary': hasFooter || bleed }"
         >
             <div class="flex min-w-0 items-center gap-3">
                 <!-- Icon -->
@@ -112,11 +111,9 @@ const hasFooter = computed(() => !!slots.footer)
         </div>
 
         <!-- Body -->
-        <div class="relative min-h-16 flex-1" :class="{ 'px-6 py-4': !bleed }">
+        <div class="relative flex-1">
             <!-- Content -->
-            <div :inert="loading || undefined" :class="{ 'blur-sm': loading }">
-                <slot />
-            </div>
+            <div :inert="loading || undefined" :class="{ 'blur-sm': loading }"><slot /></div>
 
             <!-- Loading overlay -->
             <Transition
@@ -173,7 +170,7 @@ const hasFooter = computed(() => !!slots.footer)
         <!-- Footer only rendered when the #footer slot is provided. Always padded regardless of bleed mode. -->
         <div
             v-if="hasFooter"
-            class="flex flex-wrap items-center justify-end gap-2 border-t border-theme-border-secondary px-6 py-4"
+            class="flex flex-wrap items-center justify-end gap-2 px-6 py-4 md:flex-nowrap"
             :inert="loading || undefined"
             :class="{ 'pointer-events-none opacity-50': loading }"
         >
