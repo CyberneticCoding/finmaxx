@@ -19,7 +19,7 @@ export function openModal(
  * Opens a ConfirmDialog and returns a promise that resolves with true when confirmed
  */
 export function confirm(options: ConfirmOptions): Promise<unknown> {
-    const { size, ...props } = options
+    const { size = 'sm', ...props } = options
 
     const { promise } = openModal(markRaw(ConfirmDialog), props as Record<string, unknown>, {
         size,
