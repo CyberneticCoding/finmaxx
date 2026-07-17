@@ -27,7 +27,7 @@ const {
     title = undefined,
     description = undefined,
     icon = undefined,
-    bleed = false, //todo
+    bleed = false,
     showClose = false,
     loading = false,
     loadingMessage = 'Loading...',
@@ -80,9 +80,13 @@ const hasFooter = computed(() => !!slots.footer)
 </script>
 
 <template>
-    <div class="flex flex-col overflow-hidden rounded-xl">
+    <div class="overflow-hidden rounded-xl" :class="bleed ? 'relative' : 'flex flex-col'">
         <!-- Header -->
-        <div v-if="title || icon || showClose" class="px-4 pb-4 pt-5 sm:p-6">
+        <div
+            v-if="title || icon || showClose"
+            class="px-4 pb-4 pt-5 sm:p-6"
+            :class="bleed ? 'absolute inset-x-0 top-0 z-10' : ''"
+        >
             <div class="sm:flex sm:items-start">
                 <!-- Icon -->
                 <div
@@ -101,7 +105,10 @@ const hasFooter = computed(() => !!slots.footer)
                 </div>
 
                 <div
-                    :class="['mt-3 text-center sm:mt-0 sm:text-left', iconDefinition && 'sm:ml-4']"
+                    :class="[
+                        'mt-3 flex-1 text-center sm:mt-0 sm:text-left',
+                        iconDefinition && 'sm:ml-4',
+                    ]"
                 >
                     <DialogTitle v-if="title" class="text-lg font-semibold text-theme-text-primary">
                         {{ title }}
@@ -114,7 +121,7 @@ const hasFooter = computed(() => !!slots.footer)
                 <button
                     v-if="showClose"
                     type="button"
-                    class="focus:ring-theme-primary flex-shrink-0 rounded-md p-1 text-theme-text-secondary transition hover:text-theme-brand-primary focus:outline-none focus:ring-2 focus:ring-inset"
+                    class="focus:ring-theme-primary ml-auto flex-shrink-0 rounded-md p-1 text-theme-text-secondary transition hover:text-theme-brand-primary focus:outline-none focus:ring-2 focus:ring-inset"
                     aria-label="Close"
                     @click="close"
                 >
@@ -124,7 +131,7 @@ const hasFooter = computed(() => !!slots.footer)
         </div>
 
         <!-- Body -->
-        <div class="relative flex-1">
+        <div :class="bleed ? 'relative h-full' : 'relative flex-1'">
             <!-- Content -->
             <div :inert="loading || undefined" :class="{ 'blur-sm': loading }"><slot /></div>
 
@@ -180,7 +187,6 @@ const hasFooter = computed(() => !!slots.footer)
             </Transition>
         </div>
 
-        <!-- todo -->
         <!-- Footer only rendered when the #footer slot is provided. Always padded regardless of bleed mode. -->
         <div
             v-if="hasFooter"
