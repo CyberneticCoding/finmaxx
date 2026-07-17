@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel } from '@headlessui/vue'
 import { useModalStore } from '../Stores/useModalStore'
-import { computed, KeepAlive, provide } from 'vue'
+import { computed, KeepAlive, nextTick, provide } from 'vue'
 import type { ModalSize } from '../Types/modalTypes'
 import { MODAL_CONTEXT_KEY, ModalContext } from '../Keys/modalContext'
 
@@ -49,7 +49,7 @@ const handleAttemptClose = () => {
     console.log('handleAttemptClose')
     const modal = displayedModal.value
     if (!modal || !modal.options.dismissable) return
-    store.requestClose(modal.id)
+    nextTick(() => store.requestClose(modal.id))
 }
 
 /* Handles cleanup after the closing animation completes */
@@ -72,7 +72,7 @@ provide(MODAL_CONTEXT_KEY, {
 
 <template>
     <TransitionRoot :show="isDialogOpen" appear as="template" @after-leave="handleAfterLeave">
-        <Dialog as="div" class="relative z-50" @close="handleAttemptClose">
+        <Dialog as="div" class="fixed inset-0 z-50" @close="handleAttemptClose">
             <!-- Dark overlay -->
             <TransitionChild
                 as="template"
