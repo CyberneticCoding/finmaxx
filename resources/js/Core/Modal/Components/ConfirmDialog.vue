@@ -41,7 +41,8 @@ function close() {
  *   Confirm action
  * ============================================================== */
 
-const isConfirming = ref(false)
+const isConfirming = ref(false) // True while an onConfirm() is busy. Determines if the button spinner is shown
+const isClosing = ref(false) // True once the action succeeded and close was requested. Keeps the button disabled during the exit animation.
 
 async function handleConfirm() {
     if (isConfirming.value || !onConfirm) return
@@ -50,7 +51,8 @@ async function handleConfirm() {
 
     try {
         await onConfirm()
-        // Action succeeded: allows for `if (await confirm(...))`
+        isConfirming.value = false
+        isClosing.value = true
         modal?.close(true)
     } catch {
         // Action failed: confirm dialog stays open
@@ -71,7 +73,7 @@ async function handleConfirm() {
                 <BaseButton
                     variant="primary"
                     :processing="isConfirming"
-                    :disabled="isConfirming"
+                    :disabled="isConfirming || isClosing"
                     @click="handleConfirm"
                 >
                     {{ confirmLabel }}
