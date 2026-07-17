@@ -33,7 +33,7 @@ export function confirm(options: ConfirmOptions): Promise<unknown> {
  * Opens a ConfirmDialog with a single close button, no actions. Resolves true when the user closes the dialog
  */
 export function popup(options: PopupOptions): Promise<unknown> {
-    const { size, closeLabel, ...rest } = options
+    const { size = 'sm', closeLabel, ...rest } = options
 
     const { promise } = openModal(
         markRaw(ConfirmDialog),

@@ -18,7 +18,7 @@ interface Props {
     description?: string
     icon?: 'danger' | 'success' | 'info'
     bleed?: boolean // Whether to apply padding to the body
-    showClose?: boolean // Whether to show the close button
+    showClose?: boolean // Whether to show the corner close button
     loading?: boolean
     loadingMessage?: string
 }
@@ -82,11 +82,8 @@ const hasFooter = computed(() => !!slots.footer)
 <template>
     <div class="flex flex-col overflow-hidden rounded-xl">
         <!-- Header -->
-        <div
-            v-if="title || icon || showClose"
-            class="flex items-start justify-between gap-3 px-6 py-4"
-        >
-            <div class="flex min-w-0 items-center gap-3">
+        <div v-if="title || icon || showClose" class="px-4 pb-4 pt-5 sm:p-6">
+            <div class="sm:flex sm:items-start">
                 <!-- Icon -->
                 <div
                     v-if="iconDefinition"
@@ -103,30 +100,27 @@ const hasFooter = computed(() => !!slots.footer)
                     />
                 </div>
 
-                <!-- Title + description -->
-                <div class="min-w-0">
-                    <DialogTitle
-                        v-if="title"
-                        class="text-base font-semibold leading-6 text-theme-text-primary"
-                    >
+                <div
+                    :class="['mt-3 text-center sm:mt-0 sm:text-left', iconDefinition && 'sm:ml-4']"
+                >
+                    <DialogTitle v-if="title" class="text-lg font-semibold text-theme-text-primary">
                         {{ title }}
                     </DialogTitle>
-                    <p v-if="description" class="mt-0.5 text-sm text-theme-text-secondary">
+                    <p v-if="description" class="mt-2 text-theme-text-tertiary">
                         {{ description }}
                     </p>
                 </div>
+                <!-- Corner close button -->
+                <button
+                    v-if="showClose"
+                    type="button"
+                    class="focus:ring-theme-primary flex-shrink-0 rounded-md p-1 text-theme-text-secondary transition hover:text-theme-brand-primary focus:outline-none focus:ring-2 focus:ring-inset"
+                    aria-label="Close"
+                    @click="close"
+                >
+                    <XMarkIcon class="size-5" aria-hidden="true" />
+                </button>
             </div>
-
-            <!-- Corner close button -->
-            <button
-                v-if="showClose"
-                type="button"
-                class="focus:ring-theme-primary flex-shrink-0 rounded-md p-1 text-theme-text-secondary transition hover:text-theme-brand-primary focus:outline-none focus:ring-2 focus:ring-inset"
-                aria-label="Close"
-                @click="close"
-            >
-                <XMarkIcon class="size-5" aria-hidden="true" />
-            </button>
         </div>
 
         <!-- Body -->
@@ -186,10 +180,11 @@ const hasFooter = computed(() => !!slots.footer)
             </Transition>
         </div>
 
+        <!-- todo -->
         <!-- Footer only rendered when the #footer slot is provided. Always padded regardless of bleed mode. -->
         <div
             v-if="hasFooter"
-            class="flex flex-wrap items-center justify-end gap-2 px-6 py-4 md:flex-nowrap"
+            class="flex flex-wrap items-center justify-end gap-2 bg-theme-bg-secondary px-4 py-3 sm:flex-nowrap sm:px-6"
             :inert="loading || undefined"
             :class="{ 'pointer-events-none opacity-50': loading }"
         >

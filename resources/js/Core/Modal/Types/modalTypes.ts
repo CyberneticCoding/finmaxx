@@ -59,7 +59,7 @@ export interface OpenResult {
 interface BaseDialogOptions {
     title: string
     description?: string
-    icon?: 'warning' | 'success' | 'info'
+    icon?: 'danger' | 'success' | 'info'
     size?: ModalSize
 }
 

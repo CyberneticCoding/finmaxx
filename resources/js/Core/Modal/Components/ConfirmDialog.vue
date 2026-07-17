@@ -12,6 +12,7 @@ interface Props {
     title: string
     description?: string
     icon?: 'danger' | 'success' | 'info'
+    buttonVariant?: 'primary' | 'inverse' | 'danger'
     confirmLabel?: string
     cancelLabel?: string
     onConfirm?: () => unknown | Promise<unknown> // Async action to run on confirm. When absent, this dialog will be a popup (one close button)
@@ -21,6 +22,7 @@ const {
     title,
     description = undefined,
     icon = undefined,
+    buttonVariant = 'danger',
     confirmLabel = 'Confirm',
     cancelLabel = 'Cancel',
     onConfirm = undefined,
@@ -66,22 +68,28 @@ async function handleConfirm() {
         <template #footer>
             <!-- Confirm Dialog: two buttons -->
             <template v-if="onConfirm">
-                <BaseButton variant="inverse" :disabled="isConfirming" @click="close">
+                <BaseButton
+                    variant="inverse"
+                    :disabled="isConfirming"
+                    @click="close"
+                    class="w-full sm:w-auto"
+                >
                     {{ cancelLabel }}
                 </BaseButton>
 
                 <BaseButton
-                    variant="primary"
+                    :variant="buttonVariant"
                     :processing="isConfirming"
                     :disabled="isConfirming || isClosing"
                     @click="handleConfirm"
+                    class="w-full sm:w-auto"
                 >
                     {{ confirmLabel }}
                 </BaseButton>
             </template>
 
             <!-- Popup: single close button -->
-            <BaseButton v-else variant="inverse" @click="close">
+            <BaseButton v-else variant="inverse" @click="close" class="mx-24 w-auto">
                 {{ cancelLabel }}
             </BaseButton>
         </template>
