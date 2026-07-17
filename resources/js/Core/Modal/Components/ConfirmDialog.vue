@@ -11,7 +11,7 @@ import BaseButton from '@/Core/UI/Components/Base/BaseButton.vue'
 interface Props {
     title: string
     description?: string
-    icon?: 'warning' | 'success' | 'info'
+    icon?: 'danger' | 'success' | 'info'
     confirmLabel?: string
     cancelLabel?: string
     onConfirm?: () => unknown | Promise<unknown> // Async action to run on confirm. When absent, this dialog will be a popup (one close button)

@@ -16,7 +16,7 @@ import { DialogTitle } from '@headlessui/vue'
 interface Props {
     title?: string
     description?: string
-    icon?: 'warning' | 'success' | 'info'
+    icon?: 'danger' | 'success' | 'info'
     bleed?: boolean // Whether to apply padding to the body
     showClose?: boolean // Whether to show the close button
     loading?: boolean
@@ -27,7 +27,7 @@ const {
     title = undefined,
     description = undefined,
     icon = undefined,
-    bleed = false,
+    bleed = false, //todo
     showClose = false,
     loading = false,
     loadingMessage = 'Loading...',
@@ -48,9 +48,21 @@ function close() {
  * ============================================================== */
 
 const ICON_MAP = {
-    warning: { component: ExclamationTriangleIcon, class: 'text-amber-500' },
-    success: { component: CheckCircleIcon, class: 'text-emerald-500' },
-    info: { component: InformationCircleIcon, class: 'text-blue-500' },
+    danger: {
+        component: ExclamationTriangleIcon,
+        class: 'text-theme-status-danger',
+        iconBackgroundClass: 'bg-theme-status-danger/10',
+    },
+    success: {
+        component: CheckCircleIcon,
+        class: 'text-theme-status-success',
+        iconBackgroundClass: 'bg-theme-status-success/10',
+    },
+    info: {
+        component: InformationCircleIcon,
+        class: 'text-theme-status-info',
+        iconBackgroundClass: 'bg-theme-status-info/10',
+    },
 }
 
 const iconDefinition = computed(() => (icon ? ICON_MAP[icon] : null))
@@ -76,13 +88,20 @@ const hasFooter = computed(() => !!slots.footer)
         >
             <div class="flex min-w-0 items-center gap-3">
                 <!-- Icon -->
-                <component
+                <div
                     v-if="iconDefinition"
-                    :is="iconDefinition.component"
-                    class="size-5 flex-shrink-0"
-                    :class="iconDefinition.class"
-                    aria-hidden="true"
-                />
+                    :class="[
+                        'mx-auto flex size-12 shrink-0 items-center justify-center rounded-full sm:mx-0 sm:size-10',
+                        iconDefinition.iconBackgroundClass,
+                    ]"
+                >
+                    <component
+                        :is="iconDefinition.component"
+                        class="size-6"
+                        :class="iconDefinition.class"
+                        aria-hidden="true"
+                    />
+                </div>
 
                 <!-- Title + description -->
                 <div class="min-w-0">
