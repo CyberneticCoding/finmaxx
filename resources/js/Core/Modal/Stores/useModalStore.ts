@@ -14,8 +14,10 @@ const generateId = (): string => `modal-${++_counter}-${Math.random().toString(3
  * ============================================================== */
 
 export const useModalStore = defineStore('modalStore', {
-    state: (): { stack: ModalEntry[] } => ({
+    state: (): { stack: ModalEntry[]; returnFocusEl: HTMLElement | null } => ({
         stack: [],
+        /** The element that opened the first modal of the stack. Focused again when the whole stack closes. */
+        returnFocusEl: null,
     }),
 
     getters: {
@@ -49,6 +51,14 @@ export const useModalStore = defineStore('modalStore', {
             options: ModalOptions = {}
         ): OpenResult {
             const id = generateId()
+
+            // Capture the element that opens the first modal, so focus can return to it later
+            if (this.stack.length === 0) {
+                this.returnFocusEl =
+                    document.activeElement instanceof HTMLElement
+                        ? markRaw(document.activeElement)
+                        : null
+            }
 
             // Create the promise and extract its resolve function to pass onto the modal, so it can await for a response.
             let _resolve!: (result: unknown) => void
@@ -100,6 +110,20 @@ export const useModalStore = defineStore('modalStore', {
         },
 
         /**
+         * Begin closing the entire stack.
+         * Marks every non-leaving entry as leaving.
+         * Used for cases where we don't want to promote a hidden modal to active anymore in the stack.
+         */
+        requestCloseAll(result?: unknown): void {
+            for (const entry of this.stack) {
+                if (entry.phase === 'leaving') continue
+
+                entry.phase = 'leaving'
+                entry.result = result
+            }
+        },
+
+        /**
          * Runs after a modal (the ID given) has finished its exit animation.
          * Removes the entry from the stack and resolves the promise.
          */
@@ -112,6 +136,17 @@ export const useModalStore = defineStore('modalStore', {
         },
 
         /**
+         * Focuses the element that opened the first modal of the stack, if it still exists.
+         */
+        restoreReturnFocus(): void {
+            if (this.returnFocusEl?.isConnected) {
+                this.returnFocusEl.focus({ preventScroll: true })
+            }
+
+            this.returnFocusEl = null
+        },
+
+        /**
          * Clears all initialized modals immediately. Happens on page transitions, as defined in app.ts
          */
         closeAll(): void {
@@ -119,6 +154,7 @@ export const useModalStore = defineStore('modalStore', {
                 entry._resolve(undefined)
             }
             this.stack = []
+            this.returnFocusEl = null
         },
     },
 })

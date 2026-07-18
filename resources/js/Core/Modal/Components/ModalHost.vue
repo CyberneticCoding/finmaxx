@@ -46,26 +46,42 @@ const keepAliveInclude = computed<string[]>(() =>
 
 /* Handles the closing */
 const handleAttemptClose = () => {
-    console.log('handleAttemptClose')
     const modal = displayedModal.value
     if (!modal || !modal.options.dismissable) return
     nextTick(() => store.requestClose(modal.id))
 }
 
-/* Handles cleanup after the closing animation completes */
-const handleAfterLeave = () => {
-    const modal = store.leaving
-    if (modal) store.finalizeClose(modal.id)
+/* After a nested modal closed and a parent was promoted back to active, cleanup the nested leaving entry */
+const handleContentAfterEnter = () => {
+    if (!store.visible) return
+
+    const nested = store.leaving
+    if (nested) store.finalizeClose(nested.id)
+}
+
+/* Handles cleanup after no more modals are visible after animations */
+const handleAfterLeave = async () => {
+    // Ensures focus restoration works by winning over the focus restoration of HeadlessUI
+    await nextTick()
+
+    store.restoreReturnFocus()
+
+    while (store.leaving) {
+        store.finalizeClose(store.leaving.id)
+    }
 }
 
 /* ==============================================================
- *   Provide Close Method
+ *   Provide Close Methods
  * ============================================================== */
 
 provide(MODAL_CONTEXT_KEY, {
     close(result?: unknown) {
         const id = displayedModal.value?.id
         if (id) store.requestClose(id, result)
+    },
+    closeAll(result?: unknown) {
+        store.requestCloseAll(result)
     },
 } satisfies ModalContext)
 </script>
@@ -104,7 +120,11 @@ provide(MODAL_CONTEXT_KEY, {
                                 panelSizeClass,
                             ]"
                         >
-                            <Transition mode="out-in" name="modal-content">
+                            <Transition
+                                mode="out-in"
+                                name="modal-content"
+                                @after-enter="handleContentAfterEnter"
+                            >
                                 <KeepAlive :include="keepAliveInclude">
                                     <component
                                         :is="displayedModal?.component"

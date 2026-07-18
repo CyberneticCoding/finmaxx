@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue'
+import { ref, inject, onMounted, nextTick } from 'vue'
 import ModalShell from './ModalShell.vue'
 import { MODAL_CONTEXT_KEY, ModalContext } from '../Keys/modalContext'
 import BaseButton from '@/Core/UI/Components/Base/BaseButton.vue'
@@ -43,8 +43,7 @@ function close() {
  *   Confirm action
  * ============================================================== */
 
-const isConfirming = ref(false) // True while an onConfirm() is busy. Determines if the button spinner is shown
-const isClosing = ref(false) // True once the action succeeded and close was requested. Keeps the button disabled during the exit animation.
+const isConfirming = ref(false)
 
 async function handleConfirm() {
     if (isConfirming.value || !onConfirm) return
@@ -53,14 +52,22 @@ async function handleConfirm() {
 
     try {
         await onConfirm()
-        isConfirming.value = false
-        isClosing.value = true
         modal?.close(true)
     } catch {
         // Action failed: confirm dialog stays open
         isConfirming.value = false
     }
 }
+
+/* ==============================================================
+ *   Initial Focus
+ * ============================================================== */
+
+const cancelButton = ref<{ $el: HTMLElement } | null>(null)
+
+onMounted(() => {
+    nextTick(() => cancelButton.value?.$el.focus())
+})
 </script>
 
 <template>
@@ -69,6 +76,7 @@ async function handleConfirm() {
             <!-- Confirm Dialog: two buttons -->
             <template v-if="onConfirm">
                 <BaseButton
+                    ref="cancelButton"
                     variant="inverse"
                     :disabled="isConfirming"
                     class="w-full sm:w-auto"
@@ -80,7 +88,7 @@ async function handleConfirm() {
                 <BaseButton
                     :variant="buttonVariant"
                     :processing="isConfirming"
-                    :disabled="isConfirming || isClosing"
+                    :disabled="isConfirming"
                     class="w-full sm:w-auto"
                     @click="handleConfirm"
                 >
@@ -89,7 +97,13 @@ async function handleConfirm() {
             </template>
 
             <!-- Popup: single close button -->
-            <BaseButton v-else variant="inverse" class="mx-24 w-auto" @click="close">
+            <BaseButton
+                v-else
+                ref="cancelButton"
+                variant="inverse"
+                class="mx-24 w-auto"
+                @click="close"
+            >
                 {{ cancelLabel }}
             </BaseButton>
         </template>
